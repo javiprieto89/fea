@@ -15,7 +15,6 @@ namespace FEArn
 		FEArn.ar.gov.afip.wsw.FEResponse objFEResponse;
 		FEAdb.db db;
 		static Sesion sesion;
-		FEArn.IBK.FacturaWebServiceConSchemaSoapBindingQSService objIBK;
 
 		public Comprobante(string urlWsaa, string urlWsfe, string RutaCertificado, long Cuit, Sesion Sesion, System.Net.WebProxy Wp)
 		{
@@ -44,10 +43,6 @@ namespace FEArn
 			objWSFE.Url = urlWsfe;
 			objWSFE.Proxy = Wp;
 
-			objIBK = new FEArn.IBK.FacturaWebServiceConSchemaSoapBindingQSService();
-			System.Security.Cryptography.X509Certificates.X509Certificate cert = System.Security.Cryptography.X509Certificates.X509Certificate.CreateFromCertFile(@"C:\AFIP\Documentos\InterFacturas\interfacturas-30710015062.pfx");
-			objIBK.ClientCertificates.Add(cert);
-			objIBK.Proxy = Wp;
 
 		}
 
@@ -217,13 +212,13 @@ namespace FEArn
 		{
 			try
 			{
-				//FEArn.IBK.consulta_timestamp_comprobante ctc = new FEArn.IBK.consulta_timestamp_comprobante();
-				//ctc.cuit_vendedor = 30710015062;
-				//ctc.cuit_canal = 30690783521;
-				//ctc.fecha_emision_desde = "20090101";
-				//ctc.fecha_emision_hasta = "20090228";
-				//ctc.limite = FEArn.IBK.consulta_timestamp_comprobanteLimite.WEB;
-				//FEArn.IBK.consulta_timestamp_response ctr = objIBK.consultaTimeStampConSchema(ctc);
+                //FEArn.IBK.consulta_timestamp_comprobante ctc = new FEArn.IBK.consulta_timestamp_comprobante();
+                //ctc.cuit_vendedor = 30710015062;
+                //ctc.cuit_canal = 30690783521;
+                //ctc.fecha_emision_desde = "20090101";
+                //ctc.fecha_emision_hasta = "20090228";
+                //ctc.limite = FEArn.IBK.consulta_timestamp_comprobanteLimite.WEB;
+                //FEArn.IBK.consulta_timestamp_response ctr = objIBK.consultaTimeStampConSchema(ctc);
 
 				//FEArn.IBK.consulta_lote_comprobantes clc = new FEArn.IBK.consulta_lote_comprobantes();
 				//clc.cuit_vendedor = lc.cabecera_lote.cuit_vendedor;
@@ -513,7 +508,15 @@ namespace FEArn
 					lcIBK.comprobante[i] = cIBK;
 				}
 
+                FEArn.IBK.FacturaWebServiceConSchemaSoapBindingQSService objIBK;
+
+                objIBK = new FEArn.IBK.FacturaWebServiceConSchemaSoapBindingQSService();
+                System.Security.Cryptography.X509Certificates.X509Certificate cert = System.Security.Cryptography.X509Certificates.X509Certificate.CreateFromCertFile(@"C:\Documents and Settings\lucasele\Mis documentos\Visual Studio 2005\Projects\FEA\fea\Certificados\interfacturas-30710015062.cer");
+                objIBK.ClientCertificates.Add(cert);
+                objIBK.Proxy = Wp;
+
 				FEArn.IBK.lote_comprobantes_response lcr = objIBK.receiveFacturasConSchema(lcIBK);
+
 			}
 			catch (Exception ex)
 			{
