@@ -98,19 +98,19 @@
   <ItemGroup>
     <Reference Include="Janus.Windows.Common.v2, Version=2.0.1208.0, Culture=neutral, PublicKeyToken=21d5517571b185bf">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLLs\Janus.Windows.Common.v2.DLL</HintPath>
+      <HintPath>..\DLLs\Janus.Windows.Common.v2.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.GridEX.v2, Version=2.0.1208.0, Culture=neutral, PublicKeyToken=21d5517571b185bf">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLLs\Janus.Windows.GridEX.v2.dll</HintPath>
+      <HintPath>..\DLLs\Janus.Windows.GridEX.v2.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.UI.v2, Version=2.0.1208.0, Culture=neutral, PublicKeyToken=21d5517571b185bf">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLLs\Janus.Windows.UI.v2.dll</HintPath>
+      <HintPath>..\DLLs\Janus.Windows.UI.v2.dll</HintPath>
     </Reference>
     <Reference Include="PureComponents.NicePanel, Version=1.0.1013.4, Culture=neutral, PublicKeyToken=2f0f2e4259d7a8e4">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLLs\PureComponents.NicePanel.dll</HintPath>
+      <HintPath>..\DLLs\PureComponents.NicePanel.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
