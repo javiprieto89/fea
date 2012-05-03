@@ -110,7 +110,7 @@
     </Reference>
     <Reference Include="PureComponents.NicePanel, Version=1.0.1013.4, Culture=neutral, PublicKeyToken=2f0f2e4259d7a8e4">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLLs\PureComponents.NicePanel.dll</HintPath>
+      <HintPath>DLLs\PureComponents.NicePanel.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
