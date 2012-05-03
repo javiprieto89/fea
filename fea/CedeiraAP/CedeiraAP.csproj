@@ -121,13 +121,9 @@
     <Reference Include="Microsoft.VisualBasic">
       <Name>Microsoft.VisualBasic</Name>
     </Reference>
-    <Reference Include="mysql.data, Version=6.0.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLLs\mysql.data.dll</HintPath>
-    </Reference>
     <Reference Include="PureComponents.NicePanel, Version=1.0.1013.4, Culture=neutral, PublicKeyToken=2f0f2e4259d7a8e4">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLLs\PureComponents.NicePanel.dll</HintPath>
+      <HintPath>..\CedUI\DLLs\PureComponents.NicePanel.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

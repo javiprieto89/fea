@@ -22,10 +22,10 @@ namespace Cedeira.SV {
 		protected string[] Sqls;
 		protected SqlConnection m_SqlConexion;
 		
-		protected MySql.Data.MySqlClient.MySqlConnection m_MySqlConnection;
-		protected MySql.Data.MySqlClient.MySqlDataAdapter m_MySqlDataAdapter;
-		protected MySql.Data.MySqlClient.MySqlCommand m_MySqlCommand;
-		protected MySql.Data.MySqlClient.MySqlTransaction m_MySqlTransaction;
+		protected SqlConnection m_MySqlConnection;
+		protected SqlDataAdapter m_MySqlDataAdapter;
+		protected SqlCommand m_MySqlCommand;
+		protected SqlTransaction m_MySqlTransaction;
 
 		protected SqlCommand m_SqlCommand;
 		protected SqlDataAdapter m_SqlAdapter;
@@ -101,7 +101,7 @@ namespace Cedeira.SV {
 					case (TipoRetorno.CantReg):
 						if (m_MySqlConnection != null)
 						{
-							m_MySqlCommand = new MySql.Data.MySqlClient.MySqlCommand();
+							m_MySqlCommand = new SqlCommand();
 							m_MySqlCommand.Connection = m_MySqlConnection;
 							m_MySqlCommand.CommandTimeout = commandTimeOut;
 							if (UsaTransaccion) { m_MySqlCommand.Transaction = m_MySqlTransaction; }
@@ -136,7 +136,7 @@ namespace Cedeira.SV {
 
 							if (m_MySqlConnection != null)
 							{
-								m_MySqlDataAdapter = new MySql.Data.MySqlClient.MySqlDataAdapter(Sqls[i], m_MySqlConnection);
+								m_MySqlDataAdapter = new SqlDataAdapter(Sqls[i], m_MySqlConnection);
 								if (UsaTransaccion) { m_MySqlDataAdapter.SelectCommand.Transaction = m_MySqlTransaction; }
 								m_MySqlDataAdapter.SelectCommand.CommandTimeout = commandTimeOut;
 								if (i == 0)
@@ -273,7 +273,7 @@ namespace Cedeira.SV {
 		{
 			try
 			{
-				m_MySqlConnection = new MySql.Data.MySqlClient.MySqlConnection(CnnStrDB);
+				m_MySqlConnection = new SqlConnection(CnnStrDB);
 				m_MySqlConnection.Open();
 				m_MySqlConnection.Close();				
 			}

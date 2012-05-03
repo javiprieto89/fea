@@ -63,14 +63,11 @@ namespace FEArn
 			get { return wp; }
 			set { wp = value; }
 		}
-
 		public void Enviar(FeaEntidades.Comprobante Comprobante)
 		{
 			try
 			{
-
 				/*Limpio resultados del comprobante anterior*/
-
 				Comprobante.Resultado = string.Empty;
 				Comprobante.Motivo = string.Empty;
 				Comprobante.MensajeError = string.Empty;
@@ -81,10 +78,7 @@ namespace FEArn
 				FEArn.ar.gov.afip.wsw.FECabeceraRequest objFECabeceraRequest = new FEArn.ar.gov.afip.wsw.FECabeceraRequest();
 				objFECabeceraRequest.cantidadreg = 1;
 
-				/*
-				 Obtengo última transacción y sumo 1
-				 */
-
+				/* Obtengo última transacción y sumo 1 */
 				FEArn.ar.gov.afip.wsw.FEUltNroResponse objFEUltNroResponse = new FEArn.ar.gov.afip.wsw.FEUltNroResponse();
 				objFEUltNroResponse = objWSFE.FEUltNroRequest(objAutorizacion);
 
@@ -96,10 +90,7 @@ namespace FEArn
 				FEArn.ar.gov.afip.wsw.FEDetalleRequest[] arrayFEDetalleRequest = new FEArn.ar.gov.afip.wsw.FEDetalleRequest[1];
 				FEArn.ar.gov.afip.wsw.FEDetalleRequest objFEDetalleRequest = new FEArn.ar.gov.afip.wsw.FEDetalleRequest();
 
-				/*
-				 Obtengo último comprobante y sumo 1
-				 */
-
+				/* Obtengo último comprobante y sumo 1 */
 				FEArn.ar.gov.afip.wsw.FERecuperaLastCMPResponse objFERecuperaLastCMPResponse = new FEArn.ar.gov.afip.wsw.FERecuperaLastCMPResponse();
 				FEArn.ar.gov.afip.wsw.FELastCMPtype tipoComprobante = new FEArn.ar.gov.afip.wsw.FELastCMPtype();
 				tipoComprobante.PtoVta = Comprobante.PuntoVenta;
@@ -144,17 +135,20 @@ namespace FEArn
 				}
 				Comprobante.MensajeError = objFEResponse.RError.perrmsg;
 
+
+
 				FEAdb.dbComprobante db = new FEAdb.dbComprobante(sesion);
 				try
 				{
+                    System.Threading.Thread.Sleep(1000);
 					db.Comprobante_ins(DateTime.Now, Comprobante.IdTransaccion, Comprobante.IdComprobante, Comprobante.PuntoVenta,
 						Comprobante.Codigo, Comprobante.DescrCodigo, Comprobante.Nro_doc, Comprobante.TipoDoc,
 						Comprobante.DescrTipoDoc, Comprobante.Fecha_cbte, Comprobante.Fecha_serv_desde, Comprobante.Fecha_serv_hasta,
 						Comprobante.Fecha_venc_pago, Comprobante.Imp_neto, Comprobante.Imp_op_ex, Comprobante.Imp_tot_conc,
 						Comprobante.Impto_liq, Comprobante.Impto_liq_rni, Comprobante.Imp_total, Comprobante.Cae, Comprobante.Motivo,
-						Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError);
+                        Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError, Comprobante.Cuit_emisor);
 				}
-				catch (MySql.Data.MySqlClient.MySqlException)
+				catch (System.Data.SqlClient.SqlException)
 				{
 					System.Threading.Thread.Sleep(1000);
 					db.Comprobante_ins(DateTime.Now, Comprobante.IdTransaccion, Comprobante.IdComprobante, Comprobante.PuntoVenta,
@@ -162,7 +156,7 @@ namespace FEArn
 						Comprobante.DescrTipoDoc, Comprobante.Fecha_cbte, Comprobante.Fecha_serv_desde, Comprobante.Fecha_serv_hasta,
 						Comprobante.Fecha_venc_pago, Comprobante.Imp_neto, Comprobante.Imp_op_ex, Comprobante.Imp_tot_conc,
 						Comprobante.Impto_liq, Comprobante.Impto_liq_rni, Comprobante.Imp_total, Comprobante.Cae, Comprobante.Motivo,
-						Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError);
+						Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError, Comprobante.Cuit_emisor);
 				}
 			}
 			catch (Exception ex)
@@ -202,8 +196,7 @@ namespace FEArn
 				cdt.IdComprobante = Convert.ToInt32(dt.Rows[i]["IdComprobante"]);
 				cdt.Presta_serv = Convert.ToBoolean(dt.Rows[i]["PrestaServicio"]);
 				cdt.MensajeError = Convert.ToString(dt.Rows[i]["MensajeError"]);
-
-
+                cdt.Cuit_emisor = Convert.ToInt64(dt.Rows[i]["Cuit_emisor"]);
 				comprobantesLista.Add(cdt);
 			}
 			return comprobantesLista;

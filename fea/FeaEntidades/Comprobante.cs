@@ -30,6 +30,7 @@ namespace FeaEntidades
 		double impto_liq_rni = 0;
 		long nro_doc;
 		Documentos.Documento tipo_doc;
+        long cuit_emisor;
 
 		public Documentos.Documento Tipo_doc
 		{
@@ -215,5 +216,11 @@ namespace FeaEntidades
 			get { return tipoComp.IdComprobante; }
 			set { tipoComp.IdComprobante = value; }
 		}
+
+        public long Cuit_emisor
+        {
+            get { return cuit_emisor; }
+            set { cuit_emisor = value; }
+        }
 	}
 }

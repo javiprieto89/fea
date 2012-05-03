@@ -53,7 +53,7 @@ namespace FEA
 				idUsuario = idUsuarioWindows;
 				Cursor.Current = System.Windows.Forms.Cursors.Default;
 				System.Configuration.ConnectionStringSettingsCollection connections = System.Configuration.ConfigurationManager.ConnectionStrings;
-				string auxCnnStr = connections["MySQL"].ConnectionString;
+				string auxCnnStr = connections["SQLServer"].ConnectionString;
 
 				Sesion = new Sesion(
 					idUsuario,
