@@ -56,6 +56,8 @@
     <Compile Include="CondicionesIVA\SujetoExento.cs" />
     <Compile Include="CondicionesIVA\SujetoNoCategorizado.cs" />
     <Compile Include="ConsultaCAE.cs" />
+    <Compile Include="ConsultaUltNroComprobante.cs" />
+    <Compile Include="ConsultaUltNroTransaccion.cs" />
     <Compile Include="Converters\lineaConverter.cs" />
     <Compile Include="Converters\lineaDescuentosConverter.cs" />
     <Compile Include="Converters\lineaImportes_moneda_origenConverter.cs" />

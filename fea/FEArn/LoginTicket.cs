@@ -14,7 +14,7 @@ namespace FEArn
 	/// <summary> 
 	/// Clase para crear objetos Login Tickets 
 	/// </summary> 
-	class LoginTicket
+	public class LoginTicket
 	{
 		// Entero de 32 bits sin signo que identifica el requerimiento 
 		public UInt32 UniqueId;
@@ -35,9 +35,76 @@ namespace FEArn
 		public string XmlStrLoginTicketRequestTemplate = "<loginTicketRequest><header><uniqueId></uniqueId><generationTime></generationTime><expirationTime></expirationTime></header><service></service></loginTicketRequest>";
 
 		private bool _verboseMode = true;
-
+        
 		// OJO! NO ES THREAD-SAFE 
 		private static UInt32 _globalUniqueID = 0;
+
+        const string DEFAULT_SERVICIO = "wsfe";
+        FEArn.ar.gov.afip.wsw.FEAuthRequest objAutorizacion;
+        FEArn.ar.gov.afip.wsfev1.FEAuthRequest objAutorizacionfev1;
+        System.Net.WebProxy wp;
+
+        public void ObtenerTicket(string RutaCertificado, long Cuit)
+        {
+            LoginTicket objTicketRespuesta;
+            string strTicketRespuesta;
+            try
+            {
+                //Crear WebProxy
+                System.Net.WebProxy wp = null;
+                if (!System.Configuration.ConfigurationManager.AppSettings["Proxy"].ToUpper().Equals("NO"))
+                {
+                    wp = new System.Net.WebProxy(System.Configuration.ConfigurationManager.AppSettings["Proxy"], false);
+                    string usuarioProxy = System.Configuration.ConfigurationManager.AppSettings["UsuarioProxy"];
+                    string claveProxy = System.Configuration.ConfigurationManager.AppSettings["ClaveProxy"];
+                    string dominioProxy = System.Configuration.ConfigurationManager.AppSettings["DominioProxy"];
+
+                    System.Net.NetworkCredential networkCredential = new System.Net.NetworkCredential(usuarioProxy, claveProxy, dominioProxy);
+                    wp.Credentials = networkCredential;
+
+                    //System.Net.CredentialCache credentialCache = new System.Net.CredentialCache();
+                    //string wsaaurl = System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsaa_LoginCMSService"];
+                    //credentialCache.Add(new Uri(wsaaurl), "NTLM", networkCredential);
+                    //string wsfeurl = System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsw_Service"];
+                    //credentialCache.Add(new Uri(wsfeurl), "NTLM", networkCredential);
+                    //wp.Credentials = credentialCache;
+                }
+                //URL Login
+                string urlWsaa = System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsaa_LoginCMSService"];
+                //Obtener Ticket
+                strTicketRespuesta = ObtenerLoginTicketResponse(DEFAULT_SERVICIO, urlWsaa, RutaCertificado, false, Wp);
+                objAutorizacion = new FEArn.ar.gov.afip.wsw.FEAuthRequest();
+                objAutorizacion.Token = Token;
+                objAutorizacion.Sign = Sign;
+                objAutorizacion.cuit = Cuit;
+                objAutorizacionfev1 = new FEArn.ar.gov.afip.wsfev1.FEAuthRequest();
+                objAutorizacionfev1.Token = Token;
+                objAutorizacionfev1.Sign = Sign;
+                objAutorizacionfev1.Cuit = Cuit;
+            }
+            catch (Exception ex)
+            {
+                Cedeira.Ex.ExceptionManager.Publish(ex);
+            }
+        }
+
+        public FEArn.ar.gov.afip.wsw.FEAuthRequest ObjAutorizacion
+        {
+            get { return objAutorizacion; }
+            set { objAutorizacion = value; }
+        }
+
+        public FEArn.ar.gov.afip.wsfev1.FEAuthRequest ObjAutorizacionfev1
+        {
+            get { return objAutorizacionfev1; }
+            set { objAutorizacionfev1 = value; }
+        }
+
+        public System.Net.WebProxy Wp
+        {
+            get { return wp; }
+            set { wp = value; }
+        }
 
 		/// <summary> 
 		/// Construye un Login Ticket obtenido del WSAA 
@@ -47,7 +114,7 @@ namespace FEArn
 		/// <param name="argRutaCertX509Firmante">Ruta del certificado X509 (con clave privada) usado para firmar</param> 
 		/// <param name="argVerbose">Nivel detallado de descripcion? true/false</param> 
 		/// <remarks></remarks> 
-		public string ObtenerLoginTicketResponse(string argServicio, string argUrlWsaa, string argRutaCertX509Firmante, bool argVerbose, WebProxy Wp)
+		private string ObtenerLoginTicketResponse(string argServicio, string argUrlWsaa, string argRutaCertX509Firmante, bool argVerbose, WebProxy Wp)
 		{
 
 			this.RutaDelCertificadoFirmante = argRutaCertX509Firmante;

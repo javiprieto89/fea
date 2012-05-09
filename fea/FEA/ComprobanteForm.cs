@@ -19,34 +19,12 @@ namespace FEA
 
 		private void ComprobanteForm_Load(object sender, EventArgs e)
 		{
-			string auxCnn = System.Configuration.ConfigurationManager.ConnectionStrings["SQLServer"].ToString();
-
-			System.Net.WebProxy wp=null;
-			if (!System.Configuration.ConfigurationManager.AppSettings["Proxy"].ToUpper().Equals("NO"))
-			{
-				wp = new System.Net.WebProxy(System.Configuration.ConfigurationManager.AppSettings["Proxy"], false);
-				string usuarioProxy = System.Configuration.ConfigurationManager.AppSettings["UsuarioProxy"];
-				string claveProxy = System.Configuration.ConfigurationManager.AppSettings["ClaveProxy"];
-				string dominioProxy = System.Configuration.ConfigurationManager.AppSettings["DominioProxy"];
-				
-				System.Net.NetworkCredential networkCredential = new System.Net.NetworkCredential(usuarioProxy, claveProxy, dominioProxy);
-				wp.Credentials = networkCredential;
-
-				//System.Net.CredentialCache credentialCache = new System.Net.CredentialCache();
-				//string wsaaurl = System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsaa_LoginCMSService"];
-				//credentialCache.Add(new Uri(wsaaurl), "NTLM", networkCredential);
-				//string wsfeurl = System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsw_Service"];
-				//credentialCache.Add(new Uri(wsfeurl), "NTLM", networkCredential);
-				//wp.Credentials = credentialCache;
-			}
-			c = new FEArn.Comprobante(System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsaa_LoginCMSService"], System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsw_Service"], System.Configuration.ConfigurationManager.AppSettings["rutaCertificadoAFIP"], Convert.ToInt64(System.Configuration.ConfigurationManager.AppSettings["CUIT"]), Aplicacion.Sesion, wp);
-
 			ptoVentaTextBox.DataBindings.Add(new Binding("Text", ce, "PuntoVenta"));
 			prestaServicioCheckBox.DataBindings.Add(new Binding("Checked", ce, "Presta_serv"));
 			tipoComprobanteComboBox.DataSource = FEArn.TiposDeComprobantes.TipoComprobante.Lista();
 			tipoComprobanteComboBox.DisplayMember = "Descr";
 			tipoComprobanteComboBox.ValueMember = "Codigo";
-			tipoComprobanteComboBox.DataBindings.Add(new Binding("SelectedItem", ce, "TipoComp"));
+            tipoComprobanteComboBox.DataBindings.Add(new Binding("SelectedItem", ce, "TipoComp"));
 			fecha_cbteDateTimePicker.DataBindings.Add(new Binding("Value", ce, "Fecha_cbte"));
 			fecha_serv_desdeDateTimePicker.DataBindings.Add(new Binding("Value", ce, "Fecha_serv_desde"));
 			fecha_serv_hastaDateTimePicker.DataBindings.Add(new Binding("Value", ce, "Fecha_serv_hasta"));
@@ -66,6 +44,7 @@ namespace FEA
 			motivoTextBox.DataBindings.Add(new Binding("Text", ce, "Motivo"));
 			resultadoTextBox.DataBindings.Add(new Binding("Text", ce, "Resultado"));
 			caeTextBox.DataBindings.Add(new Binding("Text", ce, "Cae"));
+            cuitemisorTextBox.DataBindings.Add(new Binding("Text", ce, "Cuit_emisor"));
 		}
 
         private void EnviarButton_Click(object sender, EventArgs e)
@@ -74,9 +53,10 @@ namespace FEA
             caeTextBox.Text = string.Empty;
             resultadoTextBox.Text = string.Empty;
             motivoTextBox.Text = string.Empty;
-            caeTextBox.Text = string.Empty;
             estadoTextBox.Text = string.Empty;
             this.Refresh();
+
+            c = new FEArn.Comprobante(System.Configuration.ConfigurationManager.AppSettings["rutaCertificadoAFIP"] + ce.Cuit_emisor.ToString() + ".p12", ce.Cuit_emisor, Aplicacion.Sesion);
             c.Enviar(ce);
             this.Cursor = Cursors.Default;
         }
