@@ -48,22 +48,31 @@ namespace FEA
 			//}
 		}
 
-		private void ultNroButton_Click(object sender, EventArgs e)
+		private void ultNroComprobanteButton_Click(object sender, EventArgs e)
 		{
-			//FEA.ar.gov.afip.wsw.FEUltNroResponse objFEUltNroResponse = new FEA.ar.gov.afip.wsw.FEUltNroResponse();
-			//ultNroRqstTextBox.Text = string.Empty;
-			//this.Refresh();
-
-			//try
-			//{
-			//    objFEUltNroResponse = objWSFE.FEUltNroRequest(objAutorizacion);
-			//    ultNroRqstTextBox.Text = Convert.ToString(objFEUltNroResponse.nro.value);
-			//}
-			//catch (Exception ex)
-			//{
-			//    ultNroRqstTextBox.Text=ex.Message;
-			//}
+            this.Cursor = Cursors.WaitCursor;
+            FeaEntidades.ConsultaUltNroComprobante Cunc = new FeaEntidades.ConsultaUltNroComprobante();
+            Cunc.Cuit_emisor = 20225018805;
+            Cunc.Punto_vta = 1;
+            Cunc.Tipo_cbte = 1;
+            ConsultaUltNroComprobante oFrm = new ConsultaUltNroComprobante(Cunc);
+            this.Cursor = Cursors.Default;
+            oFrm.ShowDialog();
+            this.Cursor = Cursors.WaitCursor;
+            ComprobantesDataGridView.DataSource = FEArn.Comprobante.Lista(Aplicacion.Sesion);
+            this.Cursor = Cursors.Default;
 		}
+
+        private void ultTransaccionButton_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            ConsultaUltNroTransaccion oFrm = new ConsultaUltNroTransaccion();
+            this.Cursor = Cursors.Default;
+            oFrm.ShowDialog();
+            this.Cursor = Cursors.WaitCursor;
+            ComprobantesDataGridView.DataSource = FEArn.Comprobante.Lista(Aplicacion.Sesion);
+            this.Cursor = Cursors.Default;
+        }
 
 		private void cantMaxDetButton_Click(object sender, EventArgs e)
 		{
@@ -80,53 +89,6 @@ namespace FEA
 			//{
 			//    cantMaxDetTextBox.Text = ex.Message;
 			//}
-		}
-
-		private void ultCompAutButton_Click(object sender, EventArgs e)
-		{
-			//FEA.ar.gov.afip.wsw.FERecuperaLastCMPResponse objFERecuperaLastCMPResponse = new FEA.ar.gov.afip.wsw.FERecuperaLastCMPResponse();
-			//ultCompAutTextBox.Text = string.Empty;
-			//this.Refresh();
-
-			//try
-			//{
-			//    FEA.ar.gov.afip.wsw.FELastCMPtype tipoComp = new FEA.ar.gov.afip.wsw.FELastCMPtype();
-			//    tipoComp.PtoVta = 1;
-			//    tipoComp.TipoCbte = 1;
-			//    objFERecuperaLastCMPResponse = objWSFE.FERecuperaLastCMPRequest(objAutorizacion, tipoComp);
-			//    ultCompAutTextBox.Text = Convert.ToString(objFERecuperaLastCMPResponse.cbte_nro);
-			//}
-			//catch (Exception ex)
-			//{
-			//    ultCompAutTextBox.Text = ex.Message;
-			//}
-
-		}
-
-		private void verificarCaeButton_Click(object sender, EventArgs e)
-		{
-			//FEA.ar.gov.afip.wsw.FEConsultaCAEResponse objFEConsultaCAEResponse = new FEA.ar.gov.afip.wsw.FEConsultaCAEResponse();
-			//verificarCaeTextBox.Text = string.Empty;
-			//this.Refresh();
-
-			//try
-			//{
-			//    FEA.ar.gov.afip.wsw.FEConsultaCAEReq objFEConsultaCAEReq = new FEA.ar.gov.afip.wsw.FEConsultaCAEReq();
-			//    objFEConsultaCAEReq.cae = caeTextBox.Text;
-			//    objFEConsultaCAEReq.cbt_nro = 6;
-			//    objFEConsultaCAEReq.cuit_emisor = 30710015062;
-			//    objFEConsultaCAEReq.fecha_cbte = "20081205";
-			//    objFEConsultaCAEReq.imp_total = 0;
-			//    objFEConsultaCAEReq.punto_vta = 1;
-			//    objFEConsultaCAEReq.tipo_cbte = 1;
-			//    objFEConsultaCAEResponse = objWSFE.FEConsultaCAERequest(objAutorizacion, objFEConsultaCAEReq);
-			//    verificarCaeTextBox.Text = Convert.ToString(objFEConsultaCAEResponse.Resultado + ":" + objFEConsultaCAEResponse.RError.perrmsg);
-			//}
-			//catch (Exception ex)
-			//{
-			//    verificarCaeTextBox.Text = ex.Message;
-			//}
-
 		}
 
 		private void nuevoComprobanteButton_Click(object sender, EventArgs e)
@@ -263,7 +225,8 @@ namespace FEA
             
             FeaEntidades.ConsultaCAE consultaCAE = new FeaEntidades.ConsultaCAE();
             DataGridViewRow dvr = ((DataGridViewRow)((DataGridView)sender).SelectedRows[0]);
-            consultaCAE.Cuit_emisor = Convert.ToInt64(dvr.Cells[9].Value.ToString());
+            consultaCAE.Cuit_receptor = Convert.ToInt64(dvr.Cells[9].Value.ToString());
+            consultaCAE.Cuit_emisor = Convert.ToInt64(dvr.Cells[24].Value.ToString());
             consultaCAE.Cbt_nro = Convert.ToInt32(dvr.Cells[2].Value.ToString());
             consultaCAE.Punto_vta = Convert.ToInt32(dvr.Cells[3].Value.ToString());
             consultaCAE.Tipo_cbte = Convert.ToInt32(dvr.Cells[5].Value.ToString());
@@ -276,6 +239,25 @@ namespace FEA
             this.Cursor = Cursors.WaitCursor;
             ComprobantesDataGridView.DataSource = FEArn.Comprobante.Lista(Aplicacion.Sesion);
             this.Cursor = Cursors.Default;
+        }
+
+        private void ConsultarComprobanteButton_Click(object sender, EventArgs e)
+        {
+            if (ComprobantesDataGridView.SelectedRows.Count > 0)
+            {
+                FeaEntidades.Comprobante comprobante = new FeaEntidades.Comprobante();
+                DataGridViewRow dvr = ((DataGridViewRow)ComprobantesDataGridView.SelectedRows[0]);
+                comprobante.Cuit_emisor = Convert.ToInt64(dvr.Cells[24].Value.ToString());
+                comprobante.PuntoVenta = Convert.ToInt16(dvr.Cells[3].Value.ToString());
+                comprobante.Codigo = Convert.ToInt16(dvr.Cells[5].Value.ToString());
+                comprobante.Cbt_nro = Convert.ToInt32(dvr.Cells[2].Value.ToString());
+                ConsultaComprobante oFrm = new ConsultaComprobante(comprobante);
+                this.Cursor = Cursors.Default;
+                oFrm.ShowDialog();
+                this.Cursor = Cursors.WaitCursor;
+                ComprobantesDataGridView.DataSource = FEArn.Comprobante.Lista(Aplicacion.Sesion);
+                this.Cursor = Cursors.Default;
+            }
         }
 	}
 }

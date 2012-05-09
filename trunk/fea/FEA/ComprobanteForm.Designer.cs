@@ -70,12 +70,14 @@
             this.motivoTextBox = new System.Windows.Forms.TextBox();
             this.XMLButton = new System.Windows.Forms.Button();
             this.ExcelButton = new System.Windows.Forms.Button();
+            this.cuitemisorTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ptoVentaLabel
             // 
             this.ptoVentaLabel.AutoSize = true;
-            this.ptoVentaLabel.Location = new System.Drawing.Point(60, 13);
+            this.ptoVentaLabel.Location = new System.Drawing.Point(48, 44);
             this.ptoVentaLabel.Name = "ptoVentaLabel";
             this.ptoVentaLabel.Size = new System.Drawing.Size(80, 13);
             this.ptoVentaLabel.TabIndex = 0;
@@ -84,7 +86,7 @@
             // tipoComprobanteLabel
             // 
             this.tipoComprobanteLabel.AutoSize = true;
-            this.tipoComprobanteLabel.Location = new System.Drawing.Point(55, 45);
+            this.tipoComprobanteLabel.Location = new System.Drawing.Point(20, 72);
             this.tipoComprobanteLabel.Name = "tipoComprobanteLabel";
             this.tipoComprobanteLabel.Size = new System.Drawing.Size(108, 13);
             this.tipoComprobanteLabel.TabIndex = 1;
@@ -93,7 +95,7 @@
             // fecha_cbteLabel
             // 
             this.fecha_cbteLabel.AutoSize = true;
-            this.fecha_cbteLabel.Location = new System.Drawing.Point(61, 113);
+            this.fecha_cbteLabel.Location = new System.Drawing.Point(26, 129);
             this.fecha_cbteLabel.Name = "fecha_cbteLabel";
             this.fecha_cbteLabel.Size = new System.Drawing.Size(102, 13);
             this.fecha_cbteLabel.TabIndex = 2;
@@ -102,7 +104,7 @@
             // fecha_serv_desdeLabel
             // 
             this.fecha_serv_desdeLabel.AutoSize = true;
-            this.fecha_serv_desdeLabel.Location = new System.Drawing.Point(92, 139);
+            this.fecha_serv_desdeLabel.Location = new System.Drawing.Point(57, 155);
             this.fecha_serv_desdeLabel.Name = "fecha_serv_desdeLabel";
             this.fecha_serv_desdeLabel.Size = new System.Drawing.Size(71, 13);
             this.fecha_serv_desdeLabel.TabIndex = 3;
@@ -111,7 +113,7 @@
             // fecha_serv_hastaLabel
             // 
             this.fecha_serv_hastaLabel.AutoSize = true;
-            this.fecha_serv_hastaLabel.Location = new System.Drawing.Point(103, 165);
+            this.fecha_serv_hastaLabel.Location = new System.Drawing.Point(67, 181);
             this.fecha_serv_hastaLabel.Name = "fecha_serv_hastaLabel";
             this.fecha_serv_hastaLabel.Size = new System.Drawing.Size(60, 13);
             this.fecha_serv_hastaLabel.TabIndex = 4;
@@ -120,16 +122,16 @@
             // fecha_venc_pagoLabel
             // 
             this.fecha_venc_pagoLabel.AutoSize = true;
-            this.fecha_venc_pagoLabel.Location = new System.Drawing.Point(33, 191);
+            this.fecha_venc_pagoLabel.Location = new System.Drawing.Point(36, 207);
             this.fecha_venc_pagoLabel.Name = "fecha_venc_pagoLabel";
-            this.fecha_venc_pagoLabel.Size = new System.Drawing.Size(130, 13);
+            this.fecha_venc_pagoLabel.Size = new System.Drawing.Size(91, 13);
             this.fecha_venc_pagoLabel.TabIndex = 5;
-            this.fecha_venc_pagoLabel.Text = "Vencimiento comprobante";
+            this.fecha_venc_pagoLabel.Text = "Vto. comprobante";
             // 
             // imp_netoLabel
             // 
             this.imp_netoLabel.AutoSize = true;
-            this.imp_netoLabel.Location = new System.Drawing.Point(44, 217);
+            this.imp_netoLabel.Location = new System.Drawing.Point(64, 231);
             this.imp_netoLabel.Name = "imp_netoLabel";
             this.imp_netoLabel.Size = new System.Drawing.Size(30, 13);
             this.imp_netoLabel.TabIndex = 6;
@@ -138,7 +140,7 @@
             // imp_op_exLabel
             // 
             this.imp_op_exLabel.AutoSize = true;
-            this.imp_op_exLabel.Location = new System.Drawing.Point(34, 241);
+            this.imp_op_exLabel.Location = new System.Drawing.Point(56, 257);
             this.imp_op_exLabel.Name = "imp_op_exLabel";
             this.imp_op_exLabel.Size = new System.Drawing.Size(40, 13);
             this.imp_op_exLabel.TabIndex = 7;
@@ -147,7 +149,7 @@
             // imp_tot_concLabel
             // 
             this.imp_tot_concLabel.AutoSize = true;
-            this.imp_tot_concLabel.Location = new System.Drawing.Point(11, 267);
+            this.imp_tot_concLabel.Location = new System.Drawing.Point(12, 280);
             this.imp_tot_concLabel.Name = "imp_tot_concLabel";
             this.imp_tot_concLabel.Size = new System.Drawing.Size(84, 13);
             this.imp_tot_concLabel.TabIndex = 8;
@@ -156,7 +158,7 @@
             // imp_totalLabel
             // 
             this.imp_totalLabel.AutoSize = true;
-            this.imp_totalLabel.Location = new System.Drawing.Point(230, 269);
+            this.imp_totalLabel.Location = new System.Drawing.Point(280, 283);
             this.imp_totalLabel.Name = "imp_totalLabel";
             this.imp_totalLabel.Size = new System.Drawing.Size(31, 13);
             this.imp_totalLabel.TabIndex = 9;
@@ -164,14 +166,14 @@
             // 
             // ptoVentaTextBox
             // 
-            this.ptoVentaTextBox.Location = new System.Drawing.Point(146, 10);
+            this.ptoVentaTextBox.Location = new System.Drawing.Point(131, 41);
             this.ptoVentaTextBox.Name = "ptoVentaTextBox";
             this.ptoVentaTextBox.Size = new System.Drawing.Size(95, 20);
             this.ptoVentaTextBox.TabIndex = 10;
             // 
             // fecha_cbteDateTimePicker
             // 
-            this.fecha_cbteDateTimePicker.Location = new System.Drawing.Point(169, 109);
+            this.fecha_cbteDateTimePicker.Location = new System.Drawing.Point(131, 122);
             this.fecha_cbteDateTimePicker.Name = "fecha_cbteDateTimePicker";
             this.fecha_cbteDateTimePicker.Size = new System.Drawing.Size(215, 20);
             this.fecha_cbteDateTimePicker.TabIndex = 12;
@@ -179,14 +181,14 @@
             // tipoComprobanteComboBox
             // 
             this.tipoComprobanteComboBox.FormattingEnabled = true;
-            this.tipoComprobanteComboBox.Location = new System.Drawing.Point(169, 45);
+            this.tipoComprobanteComboBox.Location = new System.Drawing.Point(132, 69);
             this.tipoComprobanteComboBox.Name = "tipoComprobanteComboBox";
-            this.tipoComprobanteComboBox.Size = new System.Drawing.Size(215, 21);
+            this.tipoComprobanteComboBox.Size = new System.Drawing.Size(299, 21);
             this.tipoComprobanteComboBox.TabIndex = 13;
             // 
             // caeTextBox
             // 
-            this.caeTextBox.Location = new System.Drawing.Point(67, 381);
+            this.caeTextBox.Location = new System.Drawing.Point(66, 395);
             this.caeTextBox.Name = "caeTextBox";
             this.caeTextBox.ReadOnly = true;
             this.caeTextBox.Size = new System.Drawing.Size(365, 20);
@@ -195,7 +197,7 @@
             // caeLabel
             // 
             this.caeLabel.AutoSize = true;
-            this.caeLabel.Location = new System.Drawing.Point(13, 384);
+            this.caeLabel.Location = new System.Drawing.Point(32, 398);
             this.caeLabel.Name = "caeLabel";
             this.caeLabel.Size = new System.Drawing.Size(28, 13);
             this.caeLabel.TabIndex = 22;
@@ -204,7 +206,7 @@
             // estadoLabel
             // 
             this.estadoLabel.AutoSize = true;
-            this.estadoLabel.Location = new System.Drawing.Point(11, 304);
+            this.estadoLabel.Location = new System.Drawing.Point(20, 318);
             this.estadoLabel.Name = "estadoLabel";
             this.estadoLabel.Size = new System.Drawing.Size(40, 13);
             this.estadoLabel.TabIndex = 21;
@@ -212,7 +214,7 @@
             // 
             // estadoTextBox
             // 
-            this.estadoTextBox.Location = new System.Drawing.Point(67, 301);
+            this.estadoTextBox.Location = new System.Drawing.Point(66, 315);
             this.estadoTextBox.Multiline = true;
             this.estadoTextBox.Name = "estadoTextBox";
             this.estadoTextBox.ReadOnly = true;
@@ -221,9 +223,9 @@
             // 
             // EnviarButton
             // 
-            this.EnviarButton.Location = new System.Drawing.Point(7, 408);
+            this.EnviarButton.Location = new System.Drawing.Point(6, 422);
             this.EnviarButton.Name = "EnviarButton";
-            this.EnviarButton.Size = new System.Drawing.Size(426, 45);
+            this.EnviarButton.Size = new System.Drawing.Size(426, 32);
             this.EnviarButton.TabIndex = 19;
             this.EnviarButton.Text = "Enviar a AFIP";
             this.EnviarButton.UseVisualStyleBackColor = true;
@@ -232,7 +234,7 @@
             // prestaServicioCheckBox
             // 
             this.prestaServicioCheckBox.AutoSize = true;
-            this.prestaServicioCheckBox.Location = new System.Drawing.Point(289, 12);
+            this.prestaServicioCheckBox.Location = new System.Drawing.Point(242, 43);
             this.prestaServicioCheckBox.Name = "prestaServicioCheckBox";
             this.prestaServicioCheckBox.Size = new System.Drawing.Size(95, 17);
             this.prestaServicioCheckBox.TabIndex = 24;
@@ -241,7 +243,7 @@
             // 
             // fecha_serv_hastaDateTimePicker
             // 
-            this.fecha_serv_hastaDateTimePicker.Location = new System.Drawing.Point(169, 161);
+            this.fecha_serv_hastaDateTimePicker.Location = new System.Drawing.Point(133, 174);
             this.fecha_serv_hastaDateTimePicker.Name = "fecha_serv_hastaDateTimePicker";
             this.fecha_serv_hastaDateTimePicker.Size = new System.Drawing.Size(215, 20);
             this.fecha_serv_hastaDateTimePicker.TabIndex = 25;
@@ -249,7 +251,7 @@
             // 
             // fecha_venc_pagoDateTimePicker
             // 
-            this.fecha_venc_pagoDateTimePicker.Location = new System.Drawing.Point(169, 187);
+            this.fecha_venc_pagoDateTimePicker.Location = new System.Drawing.Point(133, 200);
             this.fecha_venc_pagoDateTimePicker.Name = "fecha_venc_pagoDateTimePicker";
             this.fecha_venc_pagoDateTimePicker.Size = new System.Drawing.Size(215, 20);
             this.fecha_venc_pagoDateTimePicker.TabIndex = 26;
@@ -257,7 +259,7 @@
             // 
             // fecha_serv_desdeDateTimePicker
             // 
-            this.fecha_serv_desdeDateTimePicker.Location = new System.Drawing.Point(169, 135);
+            this.fecha_serv_desdeDateTimePicker.Location = new System.Drawing.Point(132, 148);
             this.fecha_serv_desdeDateTimePicker.Name = "fecha_serv_desdeDateTimePicker";
             this.fecha_serv_desdeDateTimePicker.Size = new System.Drawing.Size(215, 20);
             this.fecha_serv_desdeDateTimePicker.TabIndex = 27;
@@ -266,7 +268,7 @@
             // impto_liqLabel
             // 
             this.impto_liqLabel.AutoSize = true;
-            this.impto_liqLabel.Location = new System.Drawing.Point(230, 217);
+            this.impto_liqLabel.Location = new System.Drawing.Point(258, 231);
             this.impto_liqLabel.Name = "impto_liqLabel";
             this.impto_liqLabel.Size = new System.Drawing.Size(53, 13);
             this.impto_liqLabel.TabIndex = 28;
@@ -275,7 +277,7 @@
             // impto_liq_rniLabel
             // 
             this.impto_liq_rniLabel.AutoSize = true;
-            this.impto_liq_rniLabel.Location = new System.Drawing.Point(218, 243);
+            this.impto_liq_rniLabel.Location = new System.Drawing.Point(230, 257);
             this.impto_liq_rniLabel.Name = "impto_liq_rniLabel";
             this.impto_liq_rniLabel.Size = new System.Drawing.Size(81, 13);
             this.impto_liq_rniLabel.TabIndex = 29;
@@ -283,55 +285,55 @@
             // 
             // imp_netoTextBox
             // 
-            this.imp_netoTextBox.Location = new System.Drawing.Point(80, 214);
+            this.imp_netoTextBox.Location = new System.Drawing.Point(100, 228);
             this.imp_netoTextBox.Name = "imp_netoTextBox";
-            this.imp_netoTextBox.Size = new System.Drawing.Size(132, 20);
+            this.imp_netoTextBox.Size = new System.Drawing.Size(114, 20);
             this.imp_netoTextBox.TabIndex = 30;
             this.ComprobanteToolTip.SetToolTip(this.imp_netoTextBox, "Importe neto gravado");
             // 
             // imp_op_exTextBox
             // 
-            this.imp_op_exTextBox.Location = new System.Drawing.Point(80, 238);
+            this.imp_op_exTextBox.Location = new System.Drawing.Point(100, 252);
             this.imp_op_exTextBox.Name = "imp_op_exTextBox";
-            this.imp_op_exTextBox.Size = new System.Drawing.Size(131, 20);
+            this.imp_op_exTextBox.Size = new System.Drawing.Size(114, 20);
             this.imp_op_exTextBox.TabIndex = 31;
             this.ComprobanteToolTip.SetToolTip(this.imp_op_exTextBox, "Importe de operaciones exentas");
             // 
             // imp_tot_concTextBox
             // 
-            this.imp_tot_concTextBox.Location = new System.Drawing.Point(101, 264);
+            this.imp_tot_concTextBox.Location = new System.Drawing.Point(100, 278);
             this.imp_tot_concTextBox.Name = "imp_tot_concTextBox";
-            this.imp_tot_concTextBox.Size = new System.Drawing.Size(111, 20);
+            this.imp_tot_concTextBox.Size = new System.Drawing.Size(114, 20);
             this.imp_tot_concTextBox.TabIndex = 32;
             this.ComprobanteToolTip.SetToolTip(this.imp_tot_concTextBox, "Importe total de conceptos que no integran el precio neto gravado");
             // 
             // impto_liq_rniTextBox
             // 
-            this.impto_liq_rniTextBox.Location = new System.Drawing.Point(305, 240);
+            this.impto_liq_rniTextBox.Location = new System.Drawing.Point(317, 254);
             this.impto_liq_rniTextBox.Name = "impto_liq_rniTextBox";
-            this.impto_liq_rniTextBox.Size = new System.Drawing.Size(128, 20);
+            this.impto_liq_rniTextBox.Size = new System.Drawing.Size(114, 20);
             this.impto_liq_rniTextBox.TabIndex = 35;
             this.ComprobanteToolTip.SetToolTip(this.impto_liq_rniTextBox, "Impuesto liquidado a RNI o percepción a no categorizados");
             // 
             // impto_liqTextBox
             // 
-            this.impto_liqTextBox.Location = new System.Drawing.Point(289, 214);
+            this.impto_liqTextBox.Location = new System.Drawing.Point(317, 228);
             this.impto_liqTextBox.Name = "impto_liqTextBox";
-            this.impto_liqTextBox.Size = new System.Drawing.Size(143, 20);
+            this.impto_liqTextBox.Size = new System.Drawing.Size(114, 20);
             this.impto_liqTextBox.TabIndex = 34;
             this.ComprobanteToolTip.SetToolTip(this.impto_liqTextBox, "Importe liquidado");
             // 
             // imp_totalTextBox
             // 
-            this.imp_totalTextBox.Location = new System.Drawing.Point(267, 266);
+            this.imp_totalTextBox.Location = new System.Drawing.Point(317, 280);
             this.imp_totalTextBox.Name = "imp_totalTextBox";
-            this.imp_totalTextBox.Size = new System.Drawing.Size(165, 20);
+            this.imp_totalTextBox.Size = new System.Drawing.Size(114, 20);
             this.imp_totalTextBox.TabIndex = 33;
             this.ComprobanteToolTip.SetToolTip(this.imp_totalTextBox, "Importe total de la operación");
             // 
             // nro_docTextBox
             // 
-            this.nro_docTextBox.Location = new System.Drawing.Point(304, 82);
+            this.nro_docTextBox.Location = new System.Drawing.Point(303, 96);
             this.nro_docTextBox.Name = "nro_docTextBox";
             this.nro_docTextBox.Size = new System.Drawing.Size(129, 20);
             this.nro_docTextBox.TabIndex = 38;
@@ -340,7 +342,7 @@
             // tipo_docComboBox
             // 
             this.tipo_docComboBox.FormattingEnabled = true;
-            this.tipo_docComboBox.Location = new System.Drawing.Point(133, 82);
+            this.tipo_docComboBox.Location = new System.Drawing.Point(132, 96);
             this.tipo_docComboBox.Name = "tipo_docComboBox";
             this.tipo_docComboBox.Size = new System.Drawing.Size(165, 21);
             this.tipo_docComboBox.TabIndex = 37;
@@ -348,7 +350,7 @@
             // nro_docLabel
             // 
             this.nro_docLabel.AutoSize = true;
-            this.nro_docLabel.Location = new System.Drawing.Point(22, 85);
+            this.nro_docLabel.Location = new System.Drawing.Point(23, 99);
             this.nro_docLabel.Name = "nro_docLabel";
             this.nro_docLabel.Size = new System.Drawing.Size(105, 13);
             this.nro_docLabel.TabIndex = 36;
@@ -357,7 +359,7 @@
             // resultadoLabel
             // 
             this.resultadoLabel.AutoSize = true;
-            this.resultadoLabel.Location = new System.Drawing.Point(6, 358);
+            this.resultadoLabel.Location = new System.Drawing.Point(5, 372);
             this.resultadoLabel.Name = "resultadoLabel";
             this.resultadoLabel.Size = new System.Drawing.Size(55, 13);
             this.resultadoLabel.TabIndex = 39;
@@ -366,7 +368,7 @@
             // motivoLabel
             // 
             this.motivoLabel.AutoSize = true;
-            this.motivoLabel.Location = new System.Drawing.Point(277, 358);
+            this.motivoLabel.Location = new System.Drawing.Point(276, 372);
             this.motivoLabel.Name = "motivoLabel";
             this.motivoLabel.Size = new System.Drawing.Size(39, 13);
             this.motivoLabel.TabIndex = 40;
@@ -374,15 +376,15 @@
             // 
             // resultadoTextBox
             // 
-            this.resultadoTextBox.Location = new System.Drawing.Point(67, 355);
+            this.resultadoTextBox.Location = new System.Drawing.Point(66, 369);
             this.resultadoTextBox.Name = "resultadoTextBox";
             this.resultadoTextBox.ReadOnly = true;
-            this.resultadoTextBox.Size = new System.Drawing.Size(204, 20);
+            this.resultadoTextBox.Size = new System.Drawing.Size(194, 20);
             this.resultadoTextBox.TabIndex = 41;
             // 
             // motivoTextBox
             // 
-            this.motivoTextBox.Location = new System.Drawing.Point(322, 355);
+            this.motivoTextBox.Location = new System.Drawing.Point(321, 369);
             this.motivoTextBox.Name = "motivoTextBox";
             this.motivoTextBox.ReadOnly = true;
             this.motivoTextBox.Size = new System.Drawing.Size(110, 20);
@@ -390,9 +392,9 @@
             // 
             // XMLButton
             // 
-            this.XMLButton.Location = new System.Drawing.Point(7, 459);
+            this.XMLButton.Location = new System.Drawing.Point(6, 460);
             this.XMLButton.Name = "XMLButton";
-            this.XMLButton.Size = new System.Drawing.Size(208, 46);
+            this.XMLButton.Size = new System.Drawing.Size(208, 32);
             this.XMLButton.TabIndex = 44;
             this.XMLButton.Text = "Generar XML";
             this.XMLButton.UseVisualStyleBackColor = true;
@@ -400,19 +402,37 @@
             // 
             // ExcelButton
             // 
-            this.ExcelButton.Location = new System.Drawing.Point(221, 459);
+            this.ExcelButton.Location = new System.Drawing.Point(221, 460);
             this.ExcelButton.Name = "ExcelButton";
-            this.ExcelButton.Size = new System.Drawing.Size(211, 46);
+            this.ExcelButton.Size = new System.Drawing.Size(211, 32);
             this.ExcelButton.TabIndex = 45;
             this.ExcelButton.Text = "Generar XML desde Excel";
             this.ExcelButton.UseVisualStyleBackColor = true;
             this.ExcelButton.Click += new System.EventHandler(this.ExcelButton_Click);
             // 
+            // cuitemisorTextBox
+            // 
+            this.cuitemisorTextBox.Location = new System.Drawing.Point(131, 12);
+            this.cuitemisorTextBox.Name = "cuitemisorTextBox";
+            this.cuitemisorTextBox.Size = new System.Drawing.Size(129, 20);
+            this.cuitemisorTextBox.TabIndex = 46;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(67, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "Cuit emisor";
+            // 
             // ComprobanteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 512);
+            this.ClientSize = new System.Drawing.Size(440, 495);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cuitemisorTextBox);
             this.Controls.Add(this.ExcelButton);
             this.Controls.Add(this.XMLButton);
             this.Controls.Add(this.motivoTextBox);
@@ -506,5 +526,7 @@
         private System.Windows.Forms.TextBox motivoTextBox;
 		private System.Windows.Forms.Button XMLButton;
 		private System.Windows.Forms.Button ExcelButton;
+        private System.Windows.Forms.TextBox cuitemisorTextBox;
+        private System.Windows.Forms.Label label1;
 	}
 }

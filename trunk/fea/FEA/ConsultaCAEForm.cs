@@ -12,18 +12,19 @@ namespace FEA
 	{
 		FEArn.ConsultaCAE c;
 		FeaEntidades.ConsultaCAE ce=new FeaEntidades.ConsultaCAE();
+
 		public ConsultaCAEForm(FeaEntidades.ConsultaCAE ConsultaCAE)
 		{
 			InitializeComponent();
             ce = ConsultaCAE;
+
 		}
 
 		private void ConsultaCAEForm_Load(object sender, EventArgs e)
 		{
-			string auxCnn = System.Configuration.ConfigurationManager.ConnectionStrings["SQLServer"].ToString();
             cuitreceptorTextBox.DataBindings.Add(new Binding("Text", ce, "Cuit_receptor"));
             cuitemisorTextBox.DataBindings.Add(new Binding("Text", ce, "Cuit_emisor"));
-            ptoVentaTextBox.DataBindings.Add(new Binding("Text", ce, "Punto_Vta"));
+            ptoVentaTextBox.DataBindings.Add(new Binding("Text", ce, "Punto_vta"));
 			tipoComprobanteComboBox.DataSource = FEArn.TiposDeComprobantes.TipoComprobante.Lista();
 			tipoComprobanteComboBox.DisplayMember = "Descr";
 			tipoComprobanteComboBox.ValueMember = "Codigo";
@@ -41,27 +42,26 @@ namespace FEA
 			try
 			{
 				this.Cursor = Cursors.WaitCursor;
-				caeTextBox.Text = string.Empty;
 				resultadoTextBox.Text = string.Empty;
-				caeTextBox.Text = string.Empty;
 				estadoTextBox.Text = string.Empty;
 				this.Refresh();
                 
-                System.Net.WebProxy wp = null;
-                if (!System.Configuration.ConfigurationManager.AppSettings["Proxy"].ToUpper().Equals("NO"))
+                c = new FEArn.ConsultaCAE(System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsw_Service"], System.Configuration.ConfigurationManager.AppSettings["rutaCertificadoAFIP"] + ce.Cuit_receptor.ToString() + ".p12", ce.Cuit_receptor, Aplicacion.Sesion);
+                FEArn.ar.gov.afip.wsw.FEConsultaCAEResponse cr = new FEArn.ar.gov.afip.wsw.FEConsultaCAEResponse();
+                cr = c.ConsultarCAE(ce);
+                if (cr.RError.perrmsg == "OK")
                 {
-                    wp = new System.Net.WebProxy(System.Configuration.ConfigurationManager.AppSettings["Proxy"], false);
-                    string usuarioProxy = System.Configuration.ConfigurationManager.AppSettings["UsuarioProxy"];
-                    string claveProxy = System.Configuration.ConfigurationManager.AppSettings["ClaveProxy"];
-                    string dominioProxy = System.Configuration.ConfigurationManager.AppSettings["DominioProxy"];
-
-                    System.Net.NetworkCredential networkCredential = new System.Net.NetworkCredential(usuarioProxy, claveProxy, dominioProxy);
-                    wp.Credentials = networkCredential;
+                    MessageBox.Show("Consulta concluida satisfactoriamente.", "Información", MessageBoxButtons.OK);
+                    resultadoTextBox.Text = "El resultado es: " + cr.Resultado.ToString();
+                    estadoTextBox.Text = cr.RError.percode + " - " + cr.RError.perrmsg;
                 }
-                c = new FEArn.ConsultaCAE(System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsaa_LoginCMSService"], System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsw_Service"], System.Configuration.ConfigurationManager.AppSettings["rutaCertificadoAFIP"] & ce.Cuit_receptor.ToString() & ".p12", ce.Cuit_receptor, Aplicacion.Sesion, wp);
-                
-                c.ConsultarCAE(ce);
-				this.Cursor = Cursors.Default;
+                else
+                {
+                    MessageBox.Show("Consulta concluida con error.", "Información", MessageBoxButtons.OK);
+                    resultadoTextBox.Text = "";
+                    estadoTextBox.Text = cr.RError.percode + " - " + cr.RError.perrmsg;
+                }
+                this.Cursor = Cursors.Default;
 			}
 			catch(Exception ex)
 			{
