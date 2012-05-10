@@ -39,13 +39,13 @@ namespace FEA
 
 		private void ConsultaCAEButton_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				this.Cursor = Cursors.WaitCursor;
-				resultadoTextBox.Text = string.Empty;
-				estadoTextBox.Text = string.Empty;
-				this.Refresh();
-                
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                resultadoTextBox.Text = string.Empty;
+                estadoTextBox.Text = string.Empty;
+                this.Refresh();
+
                 c = new FEArn.ConsultaCAE(System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsw_Service"], System.Configuration.ConfigurationManager.AppSettings["rutaCertificadoAFIP"] + ce.Cuit_receptor.ToString() + ".p12", ce.Cuit_receptor, Aplicacion.Sesion);
                 FEArn.ar.gov.afip.wsw.FEConsultaCAEResponse cr = new FEArn.ar.gov.afip.wsw.FEConsultaCAEResponse();
                 cr = c.ConsultarCAE(ce);
@@ -61,12 +61,15 @@ namespace FEA
                     resultadoTextBox.Text = "";
                     estadoTextBox.Text = cr.RError.percode + " - " + cr.RError.perrmsg;
                 }
+            }
+            catch (Exception ex)
+            {
+                Cedeira.Ex.ExceptionManager.Publish(ex);
+            }
+            finally
+            {
                 this.Cursor = Cursors.Default;
-			}
-			catch(Exception ex)
-			{
-				Cedeira.Ex.ExceptionManager.Publish(ex);
-			}
+            }
 		}
 	}
 }

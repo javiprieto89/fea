@@ -31,7 +31,6 @@ namespace FeaEntidades
 		long nro_doc;
 		Documentos.Documento tipo_doc;
         long cuit_emisor;
-        long cbt_nro;
 		
         public Documentos.Documento Tipo_doc
 		{
@@ -222,12 +221,6 @@ namespace FeaEntidades
         {
             get { return cuit_emisor; }
             set { cuit_emisor = value; }
-        }
-
-        public long Cbt_nro
-        {
-            get { return cbt_nro; }
-            set { cbt_nro = value; }
         }
 	}
 }

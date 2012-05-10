@@ -36,11 +36,13 @@
             this.ptoVentaLabel = new System.Windows.Forms.Label();
             this.resultadoTextBox = new System.Windows.Forms.TextBox();
             this.resultadoLabel = new System.Windows.Forms.Label();
-            this.estadoLabel = new System.Windows.Forms.Label();
-            this.estadoTextBox = new System.Windows.Forms.TextBox();
             this.ConsultarComprobanteButton = new System.Windows.Forms.Button();
             this.tipoComprobanteLabel = new System.Windows.Forms.Label();
             this.tipoComprobanteComboBox = new System.Windows.Forms.ComboBox();
+            this.detalleTextBox = new System.Windows.Forms.TextBox();
+            this.DetalleLabel = new System.Windows.Forms.Label();
+            this.estadoTextBox = new System.Windows.Forms.TextBox();
+            this.estadoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // nrocomprobanteLbel
@@ -93,39 +95,21 @@
             // 
             // resultadoTextBox
             // 
-            this.resultadoTextBox.Location = new System.Drawing.Point(77, 170);
+            this.resultadoTextBox.Location = new System.Drawing.Point(78, 116);
             this.resultadoTextBox.Multiline = true;
             this.resultadoTextBox.Name = "resultadoTextBox";
             this.resultadoTextBox.ReadOnly = true;
-            this.resultadoTextBox.Size = new System.Drawing.Size(366, 229);
+            this.resultadoTextBox.Size = new System.Drawing.Size(366, 25);
             this.resultadoTextBox.TabIndex = 55;
             // 
             // resultadoLabel
             // 
             this.resultadoLabel.AutoSize = true;
-            this.resultadoLabel.Location = new System.Drawing.Point(15, 173);
+            this.resultadoLabel.Location = new System.Drawing.Point(17, 119);
             this.resultadoLabel.Name = "resultadoLabel";
             this.resultadoLabel.Size = new System.Drawing.Size(55, 13);
             this.resultadoLabel.TabIndex = 54;
             this.resultadoLabel.Text = "Resultado";
-            // 
-            // estadoLabel
-            // 
-            this.estadoLabel.AutoSize = true;
-            this.estadoLabel.Location = new System.Drawing.Point(30, 119);
-            this.estadoLabel.Name = "estadoLabel";
-            this.estadoLabel.Size = new System.Drawing.Size(40, 13);
-            this.estadoLabel.TabIndex = 53;
-            this.estadoLabel.Text = "Estado";
-            // 
-            // estadoTextBox
-            // 
-            this.estadoTextBox.Location = new System.Drawing.Point(78, 116);
-            this.estadoTextBox.Multiline = true;
-            this.estadoTextBox.Name = "estadoTextBox";
-            this.estadoTextBox.ReadOnly = true;
-            this.estadoTextBox.Size = new System.Drawing.Size(365, 48);
-            this.estadoTextBox.TabIndex = 52;
             // 
             // ConsultarComprobanteButton
             // 
@@ -154,18 +138,56 @@
             this.tipoComprobanteComboBox.Size = new System.Drawing.Size(241, 21);
             this.tipoComprobanteComboBox.TabIndex = 58;
             // 
+            // detalleTextBox
+            // 
+            this.detalleTextBox.Location = new System.Drawing.Point(78, 179);
+            this.detalleTextBox.Multiline = true;
+            this.detalleTextBox.Name = "detalleTextBox";
+            this.detalleTextBox.ReadOnly = true;
+            this.detalleTextBox.Size = new System.Drawing.Size(365, 220);
+            this.detalleTextBox.TabIndex = 52;
+            // 
+            // DetalleLabel
+            // 
+            this.DetalleLabel.AutoSize = true;
+            this.DetalleLabel.Location = new System.Drawing.Point(32, 179);
+            this.DetalleLabel.Name = "DetalleLabel";
+            this.DetalleLabel.Size = new System.Drawing.Size(40, 13);
+            this.DetalleLabel.TabIndex = 59;
+            this.DetalleLabel.Text = "Detalle";
+            // 
+            // estadoTextBox
+            // 
+            this.estadoTextBox.Location = new System.Drawing.Point(78, 147);
+            this.estadoTextBox.Multiline = true;
+            this.estadoTextBox.Name = "estadoTextBox";
+            this.estadoTextBox.ReadOnly = true;
+            this.estadoTextBox.Size = new System.Drawing.Size(366, 25);
+            this.estadoTextBox.TabIndex = 60;
+            // 
+            // estadoLabel
+            // 
+            this.estadoLabel.AutoSize = true;
+            this.estadoLabel.Location = new System.Drawing.Point(32, 150);
+            this.estadoLabel.Name = "estadoLabel";
+            this.estadoLabel.Size = new System.Drawing.Size(40, 13);
+            this.estadoLabel.TabIndex = 61;
+            this.estadoLabel.Text = "Estado";
+            // 
             // ConsultaComprobante
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(456, 463);
+            this.Controls.Add(this.estadoLabel);
+            this.Controls.Add(this.estadoTextBox);
+            this.Controls.Add(this.DetalleLabel);
             this.Controls.Add(this.tipoComprobanteComboBox);
             this.Controls.Add(this.tipoComprobanteLabel);
             this.Controls.Add(this.ConsultarComprobanteButton);
             this.Controls.Add(this.resultadoTextBox);
             this.Controls.Add(this.resultadoLabel);
-            this.Controls.Add(this.estadoLabel);
-            this.Controls.Add(this.estadoTextBox);
+            this.Controls.Add(this.detalleTextBox);
             this.Controls.Add(this.nrocomprobanteLbel);
             this.Controls.Add(this.cuitemisorTextBox);
             this.Controls.Add(this.nrocomprobanteTextBox);
@@ -190,10 +212,12 @@
         private System.Windows.Forms.Label ptoVentaLabel;
         private System.Windows.Forms.TextBox resultadoTextBox;
         private System.Windows.Forms.Label resultadoLabel;
-        private System.Windows.Forms.Label estadoLabel;
-        private System.Windows.Forms.TextBox estadoTextBox;
         private System.Windows.Forms.Button ConsultarComprobanteButton;
         private System.Windows.Forms.Label tipoComprobanteLabel;
         private System.Windows.Forms.ComboBox tipoComprobanteComboBox;
+        private System.Windows.Forms.TextBox detalleTextBox;
+        private System.Windows.Forms.Label DetalleLabel;
+        private System.Windows.Forms.TextBox estadoTextBox;
+        private System.Windows.Forms.Label estadoLabel;
     }
 }

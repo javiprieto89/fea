@@ -250,7 +250,7 @@ namespace FEA
                 comprobante.Cuit_emisor = Convert.ToInt64(dvr.Cells[24].Value.ToString());
                 comprobante.PuntoVenta = Convert.ToInt16(dvr.Cells[3].Value.ToString());
                 comprobante.Codigo = Convert.ToInt16(dvr.Cells[5].Value.ToString());
-                comprobante.Cbt_nro = Convert.ToInt32(dvr.Cells[2].Value.ToString());
+                comprobante.IdComprobante = Convert.ToInt32(dvr.Cells[2].Value.ToString());
                 ConsultaComprobante oFrm = new ConsultaComprobante(comprobante);
                 this.Cursor = Cursors.Default;
                 oFrm.ShowDialog();

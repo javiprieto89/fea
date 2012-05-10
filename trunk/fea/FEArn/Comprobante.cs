@@ -170,16 +170,51 @@ namespace FEArn
         {
             try
             {
-                Comprobante.Resultado = string.Empty;
-                Comprobante.Motivo = string.Empty;
-                Comprobante.MensajeError = string.Empty;
-                Comprobante.Cae = string.Empty;
                 FEArn.ar.gov.afip.wsfev1.FECompConsultaReq objFECompConsultaReq = new FEArn.ar.gov.afip.wsfev1.FECompConsultaReq();
                 objFECompConsultaReq.CbteTipo = Comprobante.Codigo;
-                objFECompConsultaReq.CbteNro = Comprobante.Cbt_nro;
+                objFECompConsultaReq.CbteNro = Comprobante.IdComprobante;
                 objFECompConsultaReq.PtoVta = Comprobante.PuntoVenta;
                 FEArn.ar.gov.afip.wsfev1.FECompConsultaResponse objFECompConsultaResponse = new FEArn.ar.gov.afip.wsfev1.FECompConsultaResponse();
                 objFECompConsultaResponse = objWSFEV1.FECompConsultar(ticket.ObjAutorizacionfev1, objFECompConsultaReq);
+                System.Globalization.CultureInfo cedeiraCultura = new System.Globalization.CultureInfo(System.Configuration.ConfigurationManager.AppSettings["Cultura"], false);
+                cedeiraCultura.DateTimeFormat = new System.Globalization.CultureInfo(System.Configuration.ConfigurationManager.AppSettings["CulturaDateTimeFormat"], false).DateTimeFormat;
+                if (objFECompConsultaResponse.Errors != null)
+                {
+                    foreach(FEArn.ar.gov.afip.wsfev1.Err err in objFECompConsultaResponse.Errors)
+                    {
+                        Comprobante.MensajeError = err.Code + "-"+ err.Msg + "\r\n";
+                    }
+                }
+                else
+                {
+                    Comprobante.MensajeError = null;
+                    Comprobante.Codigo = Convert.ToInt16(objFECompConsultaResponse.ResultGet.CbteTipo);
+                    Comprobante.IdComprobante = objFECompConsultaResponse.ResultGet.CbteDesde;
+                    Comprobante.PuntoVenta = Convert.ToInt16(objFECompConsultaResponse.ResultGet.PtoVta);
+                    Comprobante.Fecha_cbte = DateTime.ParseExact(objFECompConsultaResponse.ResultGet.CbteFch, "yyyyMMdd", cedeiraCultura);
+                    Comprobante.Fecha_serv_desde = DateTime.ParseExact(objFECompConsultaResponse.ResultGet.FchServDesde, "yyyyMMdd", cedeiraCultura);
+                    Comprobante.Fecha_serv_hasta = DateTime.ParseExact(objFECompConsultaResponse.ResultGet.FchServHasta, "yyyyMMdd", cedeiraCultura);
+                    Comprobante.Fecha_venc_pago = DateTime.ParseExact(objFECompConsultaResponse.ResultGet.FchVtoPago, "yyyyMMdd", cedeiraCultura);
+                    Comprobante.IdComprobante = objFECompConsultaResponse.ResultGet.CbteDesde;
+                    Comprobante.Imp_neto = objFECompConsultaResponse.ResultGet.ImpNeto;
+                    Comprobante.Imp_op_ex = objFECompConsultaResponse.ResultGet.ImpOpEx;
+                    Comprobante.Imp_tot_conc = objFECompConsultaResponse.ResultGet.ImpTotConc;
+                    Comprobante.Imp_total = objFECompConsultaResponse.ResultGet.ImpTotal;
+                    Comprobante.Impto_liq = objFECompConsultaResponse.ResultGet.ImpIVA;
+                    Comprobante.Cae = objFECompConsultaResponse.ResultGet.CodAutorizacion;
+                    Comprobante.FechaImpacto = DateTime.ParseExact(objFECompConsultaResponse.ResultGet.FchProceso, "yyyyMMddHHmmss", cedeiraCultura);
+                    if (objFECompConsultaResponse.ResultGet.Iva != null)
+                    {
+                    }
+                    //Comprobante.Impto_liq_rni = objFECompConsultaResponse.ResultGet.ImpIVA;
+                    Comprobante.Nro_doc = objFECompConsultaResponse.ResultGet.DocNro;
+                    Comprobante.TipoDoc = Convert.ToInt16(objFECompConsultaResponse.ResultGet.DocTipo);
+                    Comprobante.Resultado = objFECompConsultaResponse.ResultGet.Resultado;
+                    if (objFECompConsultaResponse.ResultGet.Concepto != 0)
+                    {
+                        Comprobante.Motivo = objFECompConsultaResponse.ResultGet.Concepto.ToString();
+                    }
+                }
             }
             catch (Exception ex)
             {
