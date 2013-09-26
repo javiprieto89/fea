@@ -570,5 +570,30 @@ namespace Cedeira.SV
 			}
 			dt.AcceptChanges();
 		}
+        public static string ObtenerSerializacion(object Objeto)
+        {
+            Type tipo = Objeto.GetType();
+            System.Xml.Serialization.XmlSerializer serializador;
+            if (Objeto is System.Web.Services.Protocols.SoapHeaderException)
+            {
+                return ((System.Web.Services.Protocols.SoapHeaderException)Objeto).Message;
+            }
+            else if (Objeto is System.Web.Services.Protocols.SoapException)
+            {
+                tipo = ((System.Web.Services.Protocols.SoapException)Objeto).Detail.InnerXml.GetType();
+                serializador = new System.Xml.Serialization.XmlSerializer(tipo);
+            }
+            else if (Objeto is System.Exception)
+            {
+                return ((System.Exception)Objeto).Message;
+            }
+            else
+            {
+                serializador = new System.Xml.Serialization.XmlSerializer(tipo);
+            }
+            System.IO.StringWriter sw = new System.IO.StringWriter();
+            serializador.Serialize(sw, Objeto);
+            return sw.ToString();
+        }
 	}
 }

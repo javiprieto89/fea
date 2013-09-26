@@ -259,5 +259,16 @@ namespace FEA
                 this.Cursor = Cursors.Default;
             }
         }
+
+        private void nuevoComprobanteV1Button_Click(object sender, EventArgs e)
+        {
+ 			this.Cursor = Cursors.WaitCursor;
+            ComprobanteV1Form oFrm = new ComprobanteV1Form();
+			this.Cursor = Cursors.Default;
+			oFrm.ShowDialog();
+			this.Cursor = Cursors.WaitCursor;
+			ComprobantesDataGridView.DataSource = FEArn.Comprobante.Lista(Aplicacion.Sesion);
+			this.Cursor = Cursors.Default;
+        }
 	}
 }

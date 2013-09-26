@@ -65,6 +65,12 @@
     <Compile Include="Converters\resumenDescuentosConverter.cs" />
     <Compile Include="Converters\resumenImportes_moneda_origenConverter.cs" />
     <Compile Include="Converters\resumenImpuestosConverter.cs" />
+    <Compile Include="ComprobanteV1.cs" />
+    <Compile Include="ComprobanteV1_IVA.cs" />
+    <Compile Include="ComprobanteV1_Tributos.cs" />
+    <Compile Include="ComprobanteV1_CbtesAsoc.cs" />
+    <Compile Include="TipoTributos.cs" />
+    <Compile Include="TipoIVA.cs" />
     <Compile Include="Documentos\ActaNacimiento.cs" />
     <Compile Include="Documentos\CDI.cs" />
     <Compile Include="Documentos\CI\BsAsRNP.cs" />

@@ -49,6 +49,68 @@ namespace FEA
 
         private void EnviarButton_Click(object sender, EventArgs e)
         {
+            //System.Security.Cryptography.ToBase64Transform base64 = new System.Security.Cryptography.ToBase64Transform();
+            
+            //base64Binary
+            
+            //--- Prueba 1 - HASH ---
+            //System.IO.FileStream inFile;
+            //byte[] binaryData;
+
+            //try
+            //{
+            //    inFile = new System.IO.FileStream(inputFileName,
+            //                              System.IO.FileMode.Open,
+            //                              System.IO.FileAccess.Read);
+            //    binaryData = new Byte[inFile.Length];
+            //    long bytesRead = inFile.Read(binaryData, 0,
+            //                         (int)inFile.Length);
+            //    inFile.Close();
+            //}
+            //catch (System.Exception exp)
+            //{
+            //    // Error creating stream or reading from it.
+            //    System.Console.WriteLine("{0}", exp.Message);
+            //    return;
+            //}
+
+            //// Convert the binary input into Base64 UUEncoded output.
+            //string base64String;
+            //try
+            //{
+            //    base64String =
+            //      System.Convert.ToBase64String(binaryData,
+            //                             0,
+            //                             binaryData.Length);
+            //}
+            //catch (System.ArgumentNullException)
+            //{
+            //    System.Console.WriteLine("Binary data array is null.");
+            //    return;
+            //}
+
+
+            //--- Prueba 2 - HASH ---
+            //SHA512 mySHA512 = SHA512.Create();
+
+            //Image img1 = Image.FromFile(@"d:\img1.jpg");
+            //Image img2 = Image.FromFile(@"d:\img2.jpg");
+            //MemoryStream ms1 = new MemoryStream();
+            //MemoryStream ms2 = new MemoryStream();
+
+            //img1.Save(ms1, ImageFormat.Jpeg);
+            //byte[] buf1 = ms1.GetBuffer();
+            //byte[] hash1 = mySHA512.ComputeHash(buf1);
+
+            //img2.Save(ms2, ImageFormat.Jpeg);
+            //byte[] buf2 = ms2.GetBuffer();
+            //byte[] hash2 = mySHA512.ComputeHash(buf2);
+
+            //if (Convert.ToBase64String(hash1) == Convert.ToBase64String(hash2))
+            //    MessageBox.Show("Hashed the same");
+            //else
+            //    MessageBox.Show("Different hashes");
+
             this.Cursor = Cursors.WaitCursor;
             caeTextBox.Text = string.Empty;
             resultadoTextBox.Text = string.Empty;
@@ -57,7 +119,7 @@ namespace FEA
             this.Refresh();
 
             c = new FEArn.Comprobante(System.Configuration.ConfigurationManager.AppSettings["rutaCertificadoAFIP"] + ce.Cuit_emisor.ToString() + ".p12", ce.Cuit_emisor, Aplicacion.Sesion);
-            c.Enviar(ce);
+            c.Enviar(ce, Convert.ToInt32(CantCompAProcesarTextBox.Text));
             this.Cursor = Cursors.Default;
         }
 
