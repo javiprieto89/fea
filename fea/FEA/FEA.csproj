@@ -75,6 +75,12 @@
     <Compile Include="ConsultaUltNroTransaccion.Designer.cs">
       <DependentUpon>ConsultaUltNroTransaccion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComprobanteV1Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComprobanteV1Form.Designer.cs">
+      <DependentUpon>ComprobanteV1Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrincipalForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,10 @@
     <EmbeddedResource Include="ConsultaUltNroTransaccion.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConsultaUltNroTransaccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComprobanteV1Form.resx">
+      <DependentUpon>ComprobanteV1Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PrincipalForm.resx">
       <SubType>Designer</SubType>

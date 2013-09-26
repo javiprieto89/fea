@@ -1,6 +1,6 @@
 ﻿namespace FEA
 {
-	partial class ComprobanteForm
+	partial class ComprobanteV1Form
 	{
 		/// <summary>
 		/// Variable del diseñador requerida.
@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ComprobanteForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ComprobanteV1Form));
             this.ptoVentaLabel = new System.Windows.Forms.Label();
             this.tipoComprobanteLabel = new System.Windows.Forms.Label();
             this.fecha_cbteLabel = new System.Windows.Forms.Label();
@@ -47,7 +47,6 @@
             this.caeLabel = new System.Windows.Forms.Label();
             this.estadoLabel = new System.Windows.Forms.Label();
             this.estadoTextBox = new System.Windows.Forms.TextBox();
-            this.EnviarButton = new System.Windows.Forms.Button();
             this.prestaServicioCheckBox = new System.Windows.Forms.CheckBox();
             this.fecha_serv_hastaDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.fecha_venc_pagoDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -68,15 +67,27 @@
             this.motivoLabel = new System.Windows.Forms.Label();
             this.resultadoTextBox = new System.Windows.Forms.TextBox();
             this.motivoTextBox = new System.Windows.Forms.TextBox();
-            this.XMLButton = new System.Windows.Forms.Button();
-            this.ExcelButton = new System.Windows.Forms.Button();
             this.cuitemisorTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.CabeceraPanel = new System.Windows.Forms.Panel();
             this.CantCompAProcesarLabel = new System.Windows.Forms.Label();
             this.CantCompAProcesarTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.EnviarButtonV1 = new System.Windows.Forms.Button();
+            this.IVApanel1 = new System.Windows.Forms.Panel();
+            this.dgvIVA = new System.Windows.Forms.DataGridView();
+            this.IVApanel2 = new System.Windows.Forms.Panel();
+            this.IVAAddRowButton = new System.Windows.Forms.Button();
+            this.IVADeleteRowButton = new System.Windows.Forms.Button();
             this.CabeceraPanel.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.IVApanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIVA)).BeginInit();
+            this.IVApanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ptoVentaLabel
@@ -193,7 +204,7 @@
             // 
             // caeTextBox
             // 
-            this.caeTextBox.Location = new System.Drawing.Point(174, 296);
+            this.caeTextBox.Location = new System.Drawing.Point(172, 417);
             this.caeTextBox.Name = "caeTextBox";
             this.caeTextBox.ReadOnly = true;
             this.caeTextBox.Size = new System.Drawing.Size(127, 20);
@@ -202,7 +213,7 @@
             // caeLabel
             // 
             this.caeLabel.AutoSize = true;
-            this.caeLabel.Location = new System.Drawing.Point(140, 299);
+            this.caeLabel.Location = new System.Drawing.Point(138, 420);
             this.caeLabel.Name = "caeLabel";
             this.caeLabel.Size = new System.Drawing.Size(28, 13);
             this.caeLabel.TabIndex = 22;
@@ -211,7 +222,7 @@
             // estadoLabel
             // 
             this.estadoLabel.AutoSize = true;
-            this.estadoLabel.Location = new System.Drawing.Point(25, 245);
+            this.estadoLabel.Location = new System.Drawing.Point(23, 366);
             this.estadoLabel.Name = "estadoLabel";
             this.estadoLabel.Size = new System.Drawing.Size(40, 13);
             this.estadoLabel.TabIndex = 21;
@@ -219,22 +230,12 @@
             // 
             // estadoTextBox
             // 
-            this.estadoTextBox.Location = new System.Drawing.Point(71, 242);
+            this.estadoTextBox.Location = new System.Drawing.Point(69, 363);
             this.estadoTextBox.Multiline = true;
             this.estadoTextBox.Name = "estadoTextBox";
             this.estadoTextBox.ReadOnly = true;
             this.estadoTextBox.Size = new System.Drawing.Size(579, 48);
             this.estadoTextBox.TabIndex = 20;
-            // 
-            // EnviarButton
-            // 
-            this.EnviarButton.Location = new System.Drawing.Point(13, 322);
-            this.EnviarButton.Name = "EnviarButton";
-            this.EnviarButton.Size = new System.Drawing.Size(637, 32);
-            this.EnviarButton.TabIndex = 19;
-            this.EnviarButton.Text = "Enviar a AFIP";
-            this.EnviarButton.UseVisualStyleBackColor = true;
-            this.EnviarButton.Click += new System.EventHandler(this.EnviarButton_Click);
             // 
             // prestaServicioCheckBox
             // 
@@ -366,7 +367,7 @@
             // resultadoLabel
             // 
             this.resultadoLabel.AutoSize = true;
-            this.resultadoLabel.Location = new System.Drawing.Point(10, 299);
+            this.resultadoLabel.Location = new System.Drawing.Point(8, 420);
             this.resultadoLabel.Name = "resultadoLabel";
             this.resultadoLabel.Size = new System.Drawing.Size(55, 13);
             this.resultadoLabel.TabIndex = 39;
@@ -375,7 +376,7 @@
             // motivoLabel
             // 
             this.motivoLabel.AutoSize = true;
-            this.motivoLabel.Location = new System.Drawing.Point(307, 299);
+            this.motivoLabel.Location = new System.Drawing.Point(305, 420);
             this.motivoLabel.Name = "motivoLabel";
             this.motivoLabel.Size = new System.Drawing.Size(39, 13);
             this.motivoLabel.TabIndex = 40;
@@ -383,7 +384,7 @@
             // 
             // resultadoTextBox
             // 
-            this.resultadoTextBox.Location = new System.Drawing.Point(71, 296);
+            this.resultadoTextBox.Location = new System.Drawing.Point(69, 417);
             this.resultadoTextBox.Name = "resultadoTextBox";
             this.resultadoTextBox.ReadOnly = true;
             this.resultadoTextBox.Size = new System.Drawing.Size(54, 20);
@@ -391,31 +392,11 @@
             // 
             // motivoTextBox
             // 
-            this.motivoTextBox.Location = new System.Drawing.Point(352, 296);
+            this.motivoTextBox.Location = new System.Drawing.Point(350, 417);
             this.motivoTextBox.Name = "motivoTextBox";
             this.motivoTextBox.ReadOnly = true;
             this.motivoTextBox.Size = new System.Drawing.Size(298, 20);
             this.motivoTextBox.TabIndex = 42;
-            // 
-            // XMLButton
-            // 
-            this.XMLButton.Location = new System.Drawing.Point(673, 50);
-            this.XMLButton.Name = "XMLButton";
-            this.XMLButton.Size = new System.Drawing.Size(199, 32);
-            this.XMLButton.TabIndex = 44;
-            this.XMLButton.Text = "Generar XML";
-            this.XMLButton.UseVisualStyleBackColor = true;
-            this.XMLButton.Click += new System.EventHandler(this.XMLButton_Click);
-            // 
-            // ExcelButton
-            // 
-            this.ExcelButton.Location = new System.Drawing.Point(674, 12);
-            this.ExcelButton.Name = "ExcelButton";
-            this.ExcelButton.Size = new System.Drawing.Size(198, 32);
-            this.ExcelButton.TabIndex = 45;
-            this.ExcelButton.Text = "Generar XML desde Excel";
-            this.ExcelButton.UseVisualStyleBackColor = true;
-            this.ExcelButton.Click += new System.EventHandler(this.ExcelButton_Click);
             // 
             // cuitemisorTextBox
             // 
@@ -470,17 +451,112 @@
             this.label2.TabIndex = 49;
             this.label2.Text = "Cuit receptor";
             // 
-            // ComprobanteForm
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(16, 237);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(634, 120);
+            this.tabControl1.TabIndex = 50;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.IVApanel2);
+            this.tabPage1.Controls.Add(this.IVApanel1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(626, 94);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "IVA";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(626, 94);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Tributos";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // EnviarButtonV1
+            // 
+            this.EnviarButtonV1.Location = new System.Drawing.Point(15, 443);
+            this.EnviarButtonV1.Name = "EnviarButtonV1";
+            this.EnviarButtonV1.Size = new System.Drawing.Size(633, 32);
+            this.EnviarButtonV1.TabIndex = 51;
+            this.EnviarButtonV1.Text = "Enviar a AFIP v1";
+            this.EnviarButtonV1.UseVisualStyleBackColor = true;
+            this.EnviarButtonV1.Click += new System.EventHandler(this.EnviarButtonV1_Click);
+            // 
+            // IVApanel1
+            // 
+            this.IVApanel1.Controls.Add(this.dgvIVA);
+            this.IVApanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.IVApanel1.Location = new System.Drawing.Point(3, 3);
+            this.IVApanel1.Name = "IVApanel1";
+            this.IVApanel1.Size = new System.Drawing.Size(476, 88);
+            this.IVApanel1.TabIndex = 55;
+            // 
+            // dgvIVA
+            // 
+            this.dgvIVA.AllowDrop = true;
+            this.dgvIVA.AllowUserToOrderColumns = true;
+            this.dgvIVA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvIVA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvIVA.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvIVA.Location = new System.Drawing.Point(0, 0);
+            this.dgvIVA.Name = "dgvIVA";
+            this.dgvIVA.Size = new System.Drawing.Size(476, 88);
+            this.dgvIVA.TabIndex = 55;
+            this.dgvIVA.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIVA_RowEnter);
+            // 
+            // IVApanel2
+            // 
+            this.IVApanel2.Controls.Add(this.IVADeleteRowButton);
+            this.IVApanel2.Controls.Add(this.IVAAddRowButton);
+            this.IVApanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.IVApanel2.Location = new System.Drawing.Point(485, 3);
+            this.IVApanel2.Name = "IVApanel2";
+            this.IVApanel2.Size = new System.Drawing.Size(138, 88);
+            this.IVApanel2.TabIndex = 56;
+            // 
+            // IVAAddRowButton
+            // 
+            this.IVAAddRowButton.Location = new System.Drawing.Point(3, 3);
+            this.IVAAddRowButton.Name = "IVAAddRowButton";
+            this.IVAAddRowButton.Size = new System.Drawing.Size(132, 23);
+            this.IVAAddRowButton.TabIndex = 0;
+            this.IVAAddRowButton.Text = "Agregar Fila";
+            this.IVAAddRowButton.UseVisualStyleBackColor = true;
+            this.IVAAddRowButton.Click += new System.EventHandler(this.IVAAddRowButton_Click);
+            // 
+            // IVADeleteRowButton
+            // 
+            this.IVADeleteRowButton.Location = new System.Drawing.Point(3, 33);
+            this.IVADeleteRowButton.Name = "IVADeleteRowButton";
+            this.IVADeleteRowButton.Size = new System.Drawing.Size(132, 23);
+            this.IVADeleteRowButton.TabIndex = 1;
+            this.IVADeleteRowButton.Text = "Eliminar Fila";
+            this.IVADeleteRowButton.UseVisualStyleBackColor = true;
+            this.IVADeleteRowButton.Click += new System.EventHandler(this.IVADeleteRowButton_Click);
+            // 
+            // ComprobanteV1Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 364);
+            this.ClientSize = new System.Drawing.Size(659, 481);
+            this.Controls.Add(this.EnviarButtonV1);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.CabeceraPanel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cuitemisorTextBox);
-            this.Controls.Add(this.ExcelButton);
-            this.Controls.Add(this.XMLButton);
             this.Controls.Add(this.motivoTextBox);
             this.Controls.Add(this.resultadoTextBox);
             this.Controls.Add(this.motivoLabel);
@@ -503,7 +579,6 @@
             this.Controls.Add(this.caeLabel);
             this.Controls.Add(this.estadoLabel);
             this.Controls.Add(this.estadoTextBox);
-            this.Controls.Add(this.EnviarButton);
             this.Controls.Add(this.tipoComprobanteComboBox);
             this.Controls.Add(this.fecha_cbteDateTimePicker);
             this.Controls.Add(this.ptoVentaTextBox);
@@ -520,12 +595,17 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "ComprobanteForm";
+            this.Name = "ComprobanteV1Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Comprobante";
             this.Load += new System.EventHandler(this.ComprobanteForm_Load);
             this.CabeceraPanel.ResumeLayout(false);
             this.CabeceraPanel.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.IVApanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIVA)).EndInit();
+            this.IVApanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -549,8 +629,7 @@
 		private System.Windows.Forms.TextBox caeTextBox;
 		private System.Windows.Forms.Label caeLabel;
 		private System.Windows.Forms.Label estadoLabel;
-		private System.Windows.Forms.TextBox estadoTextBox;
-		private System.Windows.Forms.Button EnviarButton;
+        private System.Windows.Forms.TextBox estadoTextBox;
 		private System.Windows.Forms.CheckBox prestaServicioCheckBox;
 		private System.Windows.Forms.DateTimePicker fecha_serv_hastaDateTimePicker;
 		private System.Windows.Forms.DateTimePicker fecha_venc_pagoDateTimePicker;
@@ -571,13 +650,20 @@
 		private System.Windows.Forms.Label motivoLabel;
 		private System.Windows.Forms.TextBox resultadoTextBox;
         private System.Windows.Forms.TextBox motivoTextBox;
-		private System.Windows.Forms.Button XMLButton;
-		private System.Windows.Forms.Button ExcelButton;
         private System.Windows.Forms.TextBox cuitemisorTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel CabeceraPanel;
         private System.Windows.Forms.Label CantCompAProcesarLabel;
         private System.Windows.Forms.TextBox CantCompAProcesarTextBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button EnviarButtonV1;
+        private System.Windows.Forms.Panel IVApanel2;
+        private System.Windows.Forms.Panel IVApanel1;
+        private System.Windows.Forms.DataGridView dgvIVA;
+        private System.Windows.Forms.Button IVADeleteRowButton;
+        private System.Windows.Forms.Button IVAAddRowButton;
 	}
 }

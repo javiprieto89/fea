@@ -33,6 +33,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrincipalForm));
             this.nuevoComprobanteButton = new System.Windows.Forms.Button();
             this.ComprobantesDataGridView = new System.Windows.Forms.DataGridView();
+            this.Cuit_emisor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrincipalToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ultNroComprobanteButton = new System.Windows.Forms.Button();
+            this.ultTransaccionButton = new System.Windows.Forms.Button();
+            this.ticketButton = new System.Windows.Forms.Button();
+            this.tokenTextBox = new System.Windows.Forms.TextBox();
+            this.signTextBox = new System.Windows.Forms.TextBox();
+            this.tokenLabel = new System.Windows.Forms.Label();
+            this.signLabel = new System.Windows.Forms.Label();
+            this.cuitTextBox = new System.Windows.Forms.TextBox();
+            this.cuitLabel = new System.Windows.Forms.Label();
+            this.ConsultarComprobanteButton = new System.Windows.Forms.Button();
+            this.PanelPruebas = new System.Windows.Forms.Panel();
             this.fechaImpactoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idTransaccionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idComprobanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,30 +70,18 @@
             this.resultadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.motivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mensajeErrorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cuit_emisor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comprobanteBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.PrincipalToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.ultNroComprobanteButton = new System.Windows.Forms.Button();
-            this.ultTransaccionButton = new System.Windows.Forms.Button();
-            this.ticketButton = new System.Windows.Forms.Button();
-            this.tokenTextBox = new System.Windows.Forms.TextBox();
-            this.signTextBox = new System.Windows.Forms.TextBox();
-            this.tokenLabel = new System.Windows.Forms.Label();
-            this.signLabel = new System.Windows.Forms.Label();
-            this.cuitTextBox = new System.Windows.Forms.TextBox();
-            this.cuitLabel = new System.Windows.Forms.Label();
-            this.ConsultarComprobanteButton = new System.Windows.Forms.Button();
-            this.PanelPruebas = new System.Windows.Forms.Panel();
+            this.nuevoComprobanteV1Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ComprobantesDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comprobanteBindingSource)).BeginInit();
             this.PanelPruebas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comprobanteBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // nuevoComprobanteButton
             // 
             this.nuevoComprobanteButton.Location = new System.Drawing.Point(14, 4);
             this.nuevoComprobanteButton.Name = "nuevoComprobanteButton";
-            this.nuevoComprobanteButton.Size = new System.Drawing.Size(509, 48);
+            this.nuevoComprobanteButton.Size = new System.Drawing.Size(256, 48);
             this.nuevoComprobanteButton.TabIndex = 21;
             this.nuevoComprobanteButton.Text = "Generar nuevo comprobante";
             this.nuevoComprobanteButton.UseVisualStyleBackColor = false;
@@ -128,6 +129,130 @@
             this.ComprobantesDataGridView.Size = new System.Drawing.Size(920, 336);
             this.ComprobantesDataGridView.TabIndex = 22;
             this.ComprobantesDataGridView.DoubleClick += new System.EventHandler(this.ComprobantesDataGridView_DoubleClick);
+            // 
+            // Cuit_emisor
+            // 
+            this.Cuit_emisor.DataPropertyName = "Cuit_emisor";
+            this.Cuit_emisor.HeaderText = "Cuit_emisor";
+            this.Cuit_emisor.Name = "Cuit_emisor";
+            this.Cuit_emisor.ReadOnly = true;
+            this.Cuit_emisor.Width = 86;
+            // 
+            // ultNroComprobanteButton
+            // 
+            this.ultNroComprobanteButton.Location = new System.Drawing.Point(540, 28);
+            this.ultNroComprobanteButton.Name = "ultNroComprobanteButton";
+            this.ultNroComprobanteButton.Size = new System.Drawing.Size(392, 24);
+            this.ultNroComprobanteButton.TabIndex = 31;
+            this.ultNroComprobanteButton.Text = "Consultar Ultimo Nro. Comprobante Emitido";
+            this.ultNroComprobanteButton.UseVisualStyleBackColor = false;
+            this.ultNroComprobanteButton.Click += new System.EventHandler(this.ultNroComprobanteButton_Click);
+            // 
+            // ultTransaccionButton
+            // 
+            this.ultTransaccionButton.Location = new System.Drawing.Point(540, 4);
+            this.ultTransaccionButton.Name = "ultTransaccionButton";
+            this.ultTransaccionButton.Size = new System.Drawing.Size(392, 24);
+            this.ultTransaccionButton.TabIndex = 32;
+            this.ultTransaccionButton.Text = "Consultar Ultimo Nro. Transacción";
+            this.ultTransaccionButton.UseVisualStyleBackColor = false;
+            this.ultTransaccionButton.Click += new System.EventHandler(this.ultTransaccionButton_Click);
+            // 
+            // ticketButton
+            // 
+            this.ticketButton.Location = new System.Drawing.Point(3, 4);
+            this.ticketButton.Name = "ticketButton";
+            this.ticketButton.Size = new System.Drawing.Size(506, 76);
+            this.ticketButton.TabIndex = 21;
+            this.ticketButton.Text = "Obtener Ticket";
+            this.ticketButton.UseVisualStyleBackColor = true;
+            this.ticketButton.Visible = false;
+            // 
+            // tokenTextBox
+            // 
+            this.tokenTextBox.Enabled = false;
+            this.tokenTextBox.Location = new System.Drawing.Point(561, 1);
+            this.tokenTextBox.Multiline = true;
+            this.tokenTextBox.Name = "tokenTextBox";
+            this.tokenTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tokenTextBox.Size = new System.Drawing.Size(345, 20);
+            this.tokenTextBox.TabIndex = 22;
+            this.tokenTextBox.Visible = false;
+            // 
+            // signTextBox
+            // 
+            this.signTextBox.Enabled = false;
+            this.signTextBox.Location = new System.Drawing.Point(561, 27);
+            this.signTextBox.Multiline = true;
+            this.signTextBox.Name = "signTextBox";
+            this.signTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.signTextBox.Size = new System.Drawing.Size(345, 20);
+            this.signTextBox.TabIndex = 23;
+            this.signTextBox.Visible = false;
+            // 
+            // tokenLabel
+            // 
+            this.tokenLabel.AutoSize = true;
+            this.tokenLabel.Location = new System.Drawing.Point(517, 4);
+            this.tokenLabel.Name = "tokenLabel";
+            this.tokenLabel.Size = new System.Drawing.Size(38, 13);
+            this.tokenLabel.TabIndex = 24;
+            this.tokenLabel.Text = "Token";
+            this.tokenLabel.Visible = false;
+            // 
+            // signLabel
+            // 
+            this.signLabel.AutoSize = true;
+            this.signLabel.Location = new System.Drawing.Point(527, 27);
+            this.signLabel.Name = "signLabel";
+            this.signLabel.Size = new System.Drawing.Size(28, 13);
+            this.signLabel.TabIndex = 25;
+            this.signLabel.Text = "Sign";
+            this.signLabel.Visible = false;
+            // 
+            // cuitTextBox
+            // 
+            this.cuitTextBox.Enabled = false;
+            this.cuitTextBox.Location = new System.Drawing.Point(561, 53);
+            this.cuitTextBox.Name = "cuitTextBox";
+            this.cuitTextBox.Size = new System.Drawing.Size(345, 20);
+            this.cuitTextBox.TabIndex = 26;
+            this.cuitTextBox.Visible = false;
+            // 
+            // cuitLabel
+            // 
+            this.cuitLabel.AutoSize = true;
+            this.cuitLabel.Location = new System.Drawing.Point(523, 56);
+            this.cuitLabel.Name = "cuitLabel";
+            this.cuitLabel.Size = new System.Drawing.Size(32, 13);
+            this.cuitLabel.TabIndex = 27;
+            this.cuitLabel.Text = "CUIT";
+            this.cuitLabel.Visible = false;
+            // 
+            // ConsultarComprobanteButton
+            // 
+            this.ConsultarComprobanteButton.Location = new System.Drawing.Point(14, 58);
+            this.ConsultarComprobanteButton.Name = "ConsultarComprobanteButton";
+            this.ConsultarComprobanteButton.Size = new System.Drawing.Size(518, 24);
+            this.ConsultarComprobanteButton.TabIndex = 34;
+            this.ConsultarComprobanteButton.Text = "Consultar Comprobante";
+            this.ConsultarComprobanteButton.UseVisualStyleBackColor = false;
+            this.ConsultarComprobanteButton.Click += new System.EventHandler(this.ConsultarComprobanteButton_Click);
+            // 
+            // PanelPruebas
+            // 
+            this.PanelPruebas.Controls.Add(this.cuitLabel);
+            this.PanelPruebas.Controls.Add(this.cuitTextBox);
+            this.PanelPruebas.Controls.Add(this.signLabel);
+            this.PanelPruebas.Controls.Add(this.tokenLabel);
+            this.PanelPruebas.Controls.Add(this.signTextBox);
+            this.PanelPruebas.Controls.Add(this.tokenTextBox);
+            this.PanelPruebas.Controls.Add(this.ticketButton);
+            this.PanelPruebas.Location = new System.Drawing.Point(14, 99);
+            this.PanelPruebas.Name = "PanelPruebas";
+            this.PanelPruebas.Size = new System.Drawing.Size(918, 86);
+            this.PanelPruebas.TabIndex = 23;
+            this.PanelPruebas.Visible = false;
             // 
             // fechaImpactoDataGridViewTextBoxColumn
             // 
@@ -352,139 +477,26 @@
             this.mensajeErrorDataGridViewTextBoxColumn.ReadOnly = true;
             this.mensajeErrorDataGridViewTextBoxColumn.Width = 89;
             // 
-            // Cuit_emisor
-            // 
-            this.Cuit_emisor.DataPropertyName = "Cuit_emisor";
-            this.Cuit_emisor.HeaderText = "Cuit_emisor";
-            this.Cuit_emisor.Name = "Cuit_emisor";
-            this.Cuit_emisor.ReadOnly = true;
-            this.Cuit_emisor.Width = 86;
-            // 
             // comprobanteBindingSource
             // 
             this.comprobanteBindingSource.DataSource = typeof(FeaEntidades.Comprobante);
             // 
-            // ultNroComprobanteButton
+            // nuevoComprobanteV1Button
             // 
-            this.ultNroComprobanteButton.Location = new System.Drawing.Point(527, 28);
-            this.ultNroComprobanteButton.Name = "ultNroComprobanteButton";
-            this.ultNroComprobanteButton.Size = new System.Drawing.Size(405, 24);
-            this.ultNroComprobanteButton.TabIndex = 31;
-            this.ultNroComprobanteButton.Text = "Consultar Ultimo Nro. Comprobante Emitido";
-            this.ultNroComprobanteButton.UseVisualStyleBackColor = false;
-            this.ultNroComprobanteButton.Click += new System.EventHandler(this.ultNroComprobanteButton_Click);
-            // 
-            // ultTransaccionButton
-            // 
-            this.ultTransaccionButton.Location = new System.Drawing.Point(527, 4);
-            this.ultTransaccionButton.Name = "ultTransaccionButton";
-            this.ultTransaccionButton.Size = new System.Drawing.Size(405, 24);
-            this.ultTransaccionButton.TabIndex = 32;
-            this.ultTransaccionButton.Text = "Consultar Ultimo Nro. Transacción";
-            this.ultTransaccionButton.UseVisualStyleBackColor = false;
-            this.ultTransaccionButton.Click += new System.EventHandler(this.ultTransaccionButton_Click);
-            // 
-            // ticketButton
-            // 
-            this.ticketButton.Location = new System.Drawing.Point(3, 4);
-            this.ticketButton.Name = "ticketButton";
-            this.ticketButton.Size = new System.Drawing.Size(506, 76);
-            this.ticketButton.TabIndex = 21;
-            this.ticketButton.Text = "Obtener Ticket";
-            this.ticketButton.UseVisualStyleBackColor = true;
-            this.ticketButton.Visible = false;
-            // 
-            // tokenTextBox
-            // 
-            this.tokenTextBox.Enabled = false;
-            this.tokenTextBox.Location = new System.Drawing.Point(561, 1);
-            this.tokenTextBox.Multiline = true;
-            this.tokenTextBox.Name = "tokenTextBox";
-            this.tokenTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tokenTextBox.Size = new System.Drawing.Size(345, 20);
-            this.tokenTextBox.TabIndex = 22;
-            this.tokenTextBox.Visible = false;
-            // 
-            // signTextBox
-            // 
-            this.signTextBox.Enabled = false;
-            this.signTextBox.Location = new System.Drawing.Point(561, 27);
-            this.signTextBox.Multiline = true;
-            this.signTextBox.Name = "signTextBox";
-            this.signTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.signTextBox.Size = new System.Drawing.Size(345, 20);
-            this.signTextBox.TabIndex = 23;
-            this.signTextBox.Visible = false;
-            // 
-            // tokenLabel
-            // 
-            this.tokenLabel.AutoSize = true;
-            this.tokenLabel.Location = new System.Drawing.Point(517, 4);
-            this.tokenLabel.Name = "tokenLabel";
-            this.tokenLabel.Size = new System.Drawing.Size(38, 13);
-            this.tokenLabel.TabIndex = 24;
-            this.tokenLabel.Text = "Token";
-            this.tokenLabel.Visible = false;
-            // 
-            // signLabel
-            // 
-            this.signLabel.AutoSize = true;
-            this.signLabel.Location = new System.Drawing.Point(527, 27);
-            this.signLabel.Name = "signLabel";
-            this.signLabel.Size = new System.Drawing.Size(28, 13);
-            this.signLabel.TabIndex = 25;
-            this.signLabel.Text = "Sign";
-            this.signLabel.Visible = false;
-            // 
-            // cuitTextBox
-            // 
-            this.cuitTextBox.Enabled = false;
-            this.cuitTextBox.Location = new System.Drawing.Point(561, 53);
-            this.cuitTextBox.Name = "cuitTextBox";
-            this.cuitTextBox.Size = new System.Drawing.Size(345, 20);
-            this.cuitTextBox.TabIndex = 26;
-            this.cuitTextBox.Visible = false;
-            // 
-            // cuitLabel
-            // 
-            this.cuitLabel.AutoSize = true;
-            this.cuitLabel.Location = new System.Drawing.Point(523, 56);
-            this.cuitLabel.Name = "cuitLabel";
-            this.cuitLabel.Size = new System.Drawing.Size(32, 13);
-            this.cuitLabel.TabIndex = 27;
-            this.cuitLabel.Text = "CUIT";
-            this.cuitLabel.Visible = false;
-            // 
-            // ConsultarComprobanteButton
-            // 
-            this.ConsultarComprobanteButton.Location = new System.Drawing.Point(14, 58);
-            this.ConsultarComprobanteButton.Name = "ConsultarComprobanteButton";
-            this.ConsultarComprobanteButton.Size = new System.Drawing.Size(509, 24);
-            this.ConsultarComprobanteButton.TabIndex = 34;
-            this.ConsultarComprobanteButton.Text = "Consultar Comprobante";
-            this.ConsultarComprobanteButton.UseVisualStyleBackColor = false;
-            this.ConsultarComprobanteButton.Click += new System.EventHandler(this.ConsultarComprobanteButton_Click);
-            // 
-            // PanelPruebas
-            // 
-            this.PanelPruebas.Controls.Add(this.cuitLabel);
-            this.PanelPruebas.Controls.Add(this.cuitTextBox);
-            this.PanelPruebas.Controls.Add(this.signLabel);
-            this.PanelPruebas.Controls.Add(this.tokenLabel);
-            this.PanelPruebas.Controls.Add(this.signTextBox);
-            this.PanelPruebas.Controls.Add(this.tokenTextBox);
-            this.PanelPruebas.Controls.Add(this.ticketButton);
-            this.PanelPruebas.Location = new System.Drawing.Point(14, 99);
-            this.PanelPruebas.Name = "PanelPruebas";
-            this.PanelPruebas.Size = new System.Drawing.Size(918, 86);
-            this.PanelPruebas.TabIndex = 23;
-            this.PanelPruebas.Visible = false;
+            this.nuevoComprobanteV1Button.Location = new System.Drawing.Point(276, 4);
+            this.nuevoComprobanteV1Button.Name = "nuevoComprobanteV1Button";
+            this.nuevoComprobanteV1Button.Size = new System.Drawing.Size(256, 48);
+            this.nuevoComprobanteV1Button.TabIndex = 35;
+            this.nuevoComprobanteV1Button.Text = "Generar nuevo comprobante V1";
+            this.nuevoComprobanteV1Button.UseVisualStyleBackColor = false;
+            this.nuevoComprobanteV1Button.Click += new System.EventHandler(this.nuevoComprobanteV1Button_Click);
             // 
             // PrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 427);
+            this.Controls.Add(this.nuevoComprobanteV1Button);
             this.Controls.Add(this.ConsultarComprobanteButton);
             this.Controls.Add(this.ultTransaccionButton);
             this.Controls.Add(this.ComprobantesDataGridView);
@@ -498,9 +510,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CedFEA";
             ((System.ComponentModel.ISupportInitialize)(this.ComprobantesDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comprobanteBindingSource)).EndInit();
             this.PanelPruebas.ResumeLayout(false);
             this.PanelPruebas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comprobanteBindingSource)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -547,6 +559,7 @@
         private System.Windows.Forms.Label cuitLabel;
         private System.Windows.Forms.Button ConsultarComprobanteButton;
         private System.Windows.Forms.Panel PanelPruebas;
+        private System.Windows.Forms.Button nuevoComprobanteV1Button;
 	}
 }
 

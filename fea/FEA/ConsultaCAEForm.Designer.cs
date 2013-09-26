@@ -51,6 +51,7 @@
             this.cuitreceptorTextBox = new System.Windows.Forms.TextBox();
             this.cuitreceptor = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ptoVentaLabel
@@ -142,21 +143,21 @@
             // 
             this.imp_totalTextBox.Location = new System.Drawing.Point(173, 174);
             this.imp_totalTextBox.Name = "imp_totalTextBox";
-            this.imp_totalTextBox.Size = new System.Drawing.Size(129, 20);
+            this.imp_totalTextBox.Size = new System.Drawing.Size(95, 20);
             this.imp_totalTextBox.TabIndex = 33;
             // 
             // nrocomprobanteTextBox
             // 
             this.nrocomprobanteTextBox.Location = new System.Drawing.Point(173, 94);
             this.nrocomprobanteTextBox.Name = "nrocomprobanteTextBox";
-            this.nrocomprobanteTextBox.Size = new System.Drawing.Size(129, 20);
+            this.nrocomprobanteTextBox.Size = new System.Drawing.Size(95, 20);
             this.nrocomprobanteTextBox.TabIndex = 38;
             // 
             // cuitemisorTextBox
             // 
             this.cuitemisorTextBox.Location = new System.Drawing.Point(173, 120);
             this.cuitemisorTextBox.Name = "cuitemisorTextBox";
-            this.cuitemisorTextBox.Size = new System.Drawing.Size(129, 20);
+            this.cuitemisorTextBox.Size = new System.Drawing.Size(95, 20);
             this.cuitemisorTextBox.TabIndex = 44;
             // 
             // cuitemisorLabel
@@ -182,7 +183,7 @@
             this.resultadoTextBox.Location = new System.Drawing.Point(71, 280);
             this.resultadoTextBox.Name = "resultadoTextBox";
             this.resultadoTextBox.ReadOnly = true;
-            this.resultadoTextBox.Size = new System.Drawing.Size(366, 20);
+            this.resultadoTextBox.Size = new System.Drawing.Size(169, 20);
             this.resultadoTextBox.TabIndex = 41;
             // 
             // ConsultaCAEButton
@@ -215,7 +216,7 @@
             // 
             this.cuitreceptorTextBox.Location = new System.Drawing.Point(173, 15);
             this.cuitreceptorTextBox.Name = "cuitreceptorTextBox";
-            this.cuitreceptorTextBox.Size = new System.Drawing.Size(129, 20);
+            this.cuitreceptorTextBox.Size = new System.Drawing.Size(95, 20);
             this.cuitreceptorTextBox.TabIndex = 47;
             // 
             // cuitreceptor
@@ -230,17 +231,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(308, 18);
+            this.label1.Location = new System.Drawing.Point(274, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(138, 13);
             this.label1.TabIndex = 49;
             this.label1.Text = "( Cuit del certificado a usar )";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(246, 283);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(192, 13);
+            this.label2.TabIndex = 50;
+            this.label2.Text = "( 1 = Encontrado y 0 = No encontrado )";
             // 
             // ConsultaCAEForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(450, 367);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cuitreceptor);
             this.Controls.Add(this.cuitreceptorTextBox);
@@ -299,5 +310,6 @@
         private System.Windows.Forms.TextBox cuitreceptorTextBox;
         private System.Windows.Forms.Label cuitreceptor;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
 	}
 }

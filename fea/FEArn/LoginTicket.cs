@@ -167,7 +167,7 @@ namespace FEArn
 				{
 					Console.WriteLine("***Leyendo certificado: {0}", RutaDelCertificadoFirmante);
 				}
-
+                
 				X509Certificate2 certFirmante = CertificadosX509Lib.ObtieneCertificadoDesdeArchivo(RutaDelCertificadoFirmante);
 
 				if (this._verboseMode)

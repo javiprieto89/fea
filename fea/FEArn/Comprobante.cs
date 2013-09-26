@@ -14,6 +14,7 @@ namespace FEArn
         LoginTicket ticket;
         FEArn.ar.gov.afip.wsw.Service objWS;
         FEArn.ar.gov.afip.wsfev1.Service objWSFEV1;
+        int cantidadComprobantesXLote;
 
 		public Comprobante(string RutaCertificado, long Cuit, Sesion Sesion)
 		{
@@ -28,9 +29,10 @@ namespace FEArn
             objWSFEV1.Url = System.Configuration.ConfigurationManager.AppSettings["FEA_ar_gov_afip_wsfev1_Service"];
             objWSFEV1.Proxy = ticket.Wp;
 			db = new FEAdb.db(sesion);
+            cantidadComprobantesXLote = 1;
 		}
 
-		public void Enviar(FeaEntidades.Comprobante Comprobante)
+		public void Enviar(FeaEntidades.Comprobante Comprobante, int CantidadComprobantes)
 		{
 			try
 			{
@@ -43,7 +45,7 @@ namespace FEArn
 				FEArn.ar.gov.afip.wsw.FERequest objFERequest = new FEArn.ar.gov.afip.wsw.FERequest();
 
 				FEArn.ar.gov.afip.wsw.FECabeceraRequest objFECabeceraRequest = new FEArn.ar.gov.afip.wsw.FECabeceraRequest();
-				objFECabeceraRequest.cantidadreg = 1;
+                objFECabeceraRequest.cantidadreg = cantidadComprobantesXLote;
 
 				/* Obtengo última transacción y sumo 1 */
 				FEArn.ar.gov.afip.wsw.FEUltNroResponse objFEUltNroResponse = new FEArn.ar.gov.afip.wsw.FEUltNroResponse();
@@ -54,21 +56,16 @@ namespace FEArn
 				objFECabeceraRequest.presta_serv = Convert.ToInt32(Comprobante.Presta_serv);
 				objFERequest.Fecr = objFECabeceraRequest;
 
-				FEArn.ar.gov.afip.wsw.FEDetalleRequest[] arrayFEDetalleRequest = new FEArn.ar.gov.afip.wsw.FEDetalleRequest[1];
+                FEArn.ar.gov.afip.wsw.FEDetalleRequest[] arrayFEDetalleRequest = new FEArn.ar.gov.afip.wsw.FEDetalleRequest[CantidadComprobantes];
 				FEArn.ar.gov.afip.wsw.FEDetalleRequest objFEDetalleRequest = new FEArn.ar.gov.afip.wsw.FEDetalleRequest();
 
-				/* Obtengo último comprobante y sumo 1 */
+				/* Obtengo último comprobante*/
 				FEArn.ar.gov.afip.wsw.FERecuperaLastCMPResponse objFERecuperaLastCMPResponse = new FEArn.ar.gov.afip.wsw.FERecuperaLastCMPResponse();
 				FEArn.ar.gov.afip.wsw.FELastCMPtype tipoComprobante = new FEArn.ar.gov.afip.wsw.FELastCMPtype();
 				tipoComprobante.PtoVta = Comprobante.PuntoVenta;
 				tipoComprobante.TipoCbte = Comprobante.Codigo;
-
                 objFERecuperaLastCMPResponse = objWS.FERecuperaLastCMPRequest(ticket.ObjAutorizacion, tipoComprobante);
-
-				Comprobante.IdComprobante = objFERecuperaLastCMPResponse.cbte_nro + 1;
-
-				objFEDetalleRequest.cbt_desde = Comprobante.IdComprobante;
-				objFEDetalleRequest.cbt_hasta = Comprobante.IdComprobante;
+				Comprobante.IdComprobante = objFERecuperaLastCMPResponse.cbte_nro;
 
 				objFEDetalleRequest.fecha_cbte = Comprobante.Fecha_cbte.ToString("yyyyMMdd");
 				objFEDetalleRequest.fecha_serv_desde = Comprobante.Fecha_serv_desde.ToString("yyyyMMdd");
@@ -84,52 +81,244 @@ namespace FEArn
 				objFEDetalleRequest.punto_vta = Comprobante.PuntoVenta;
 				objFEDetalleRequest.tipo_cbte = Comprobante.Codigo;
 				objFEDetalleRequest.tipo_doc = Comprobante.TipoDoc;
-
-				arrayFEDetalleRequest[0] = objFEDetalleRequest;
+                
+                arrayFEDetalleRequest[0] = objFEDetalleRequest;
+                for (int c = 0; c < CantidadComprobantes; c++)
+                {
+                    Comprobante.IdComprobante = Comprobante.IdComprobante + 1;
+                    objFEDetalleRequest.cbt_desde = Comprobante.IdComprobante;
+                    objFEDetalleRequest.cbt_hasta = Comprobante.IdComprobante;
+                    arrayFEDetalleRequest[c] = objFEDetalleRequest;
+                }
 				objFERequest.Fedr = arrayFEDetalleRequest;
 
                 objFEResponse = objWS.FEAutRequest(ticket.ObjAutorizacion, objFERequest);
-				if (objFEResponse.FedResp != null)
+
+                if (objFEResponse.FedResp != null)
 				{
-					Comprobante.Motivo = objFEResponse.FedResp[0].motivo;
-					Comprobante.Resultado = objFEResponse.FedResp[0].resultado;
-					Comprobante.Cae = objFEResponse.FedResp[0].cae;
+                    for (int i = 0; i < objFEResponse.FedResp.Length; i++)
+                    {
+					    Comprobante.Motivo = objFEResponse.FedResp[i].motivo ;
+					    Comprobante.Resultado = objFEResponse.FedResp[i].resultado;
+					    Comprobante.Cae = objFEResponse.FedResp[i].cae;
+                        InsertarComprobante(Comprobante);
+                    }
 				}
 				else
 				{
+                    Comprobante.MensajeError = objFEResponse.RError.percode + "-" + objFEResponse.RError.perrmsg;
 					Comprobante.IdComprobante = 0;
 					Comprobante.IdTransaccion = 0;
+                    InsertarComprobante(Comprobante);
 				}
-				Comprobante.MensajeError = objFEResponse.RError.perrmsg;
-
-				FEAdb.dbComprobante db = new FEAdb.dbComprobante(sesion);
-				try
-				{
-                    System.Threading.Thread.Sleep(1000);
-					db.Comprobante_ins(DateTime.Now, Comprobante.IdTransaccion, Comprobante.IdComprobante, Comprobante.PuntoVenta,
-						Comprobante.Codigo, Comprobante.DescrCodigo, Comprobante.Nro_doc, Comprobante.TipoDoc,
-						Comprobante.DescrTipoDoc, Comprobante.Fecha_cbte, Comprobante.Fecha_serv_desde, Comprobante.Fecha_serv_hasta,
-						Comprobante.Fecha_venc_pago, Comprobante.Imp_neto, Comprobante.Imp_op_ex, Comprobante.Imp_tot_conc,
-						Comprobante.Impto_liq, Comprobante.Impto_liq_rni, Comprobante.Imp_total, Comprobante.Cae, Comprobante.Motivo,
-                        Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError, Comprobante.Cuit_emisor);
-				}
-				catch (System.Data.SqlClient.SqlException)
-				{
-					System.Threading.Thread.Sleep(1000);
-					db.Comprobante_ins(DateTime.Now, Comprobante.IdTransaccion, Comprobante.IdComprobante, Comprobante.PuntoVenta,
-						Comprobante.Codigo, Comprobante.DescrCodigo, Comprobante.Nro_doc, Comprobante.TipoDoc,
-						Comprobante.DescrTipoDoc, Comprobante.Fecha_cbte, Comprobante.Fecha_serv_desde, Comprobante.Fecha_serv_hasta,
-						Comprobante.Fecha_venc_pago, Comprobante.Imp_neto, Comprobante.Imp_op_ex, Comprobante.Imp_tot_conc,
-						Comprobante.Impto_liq, Comprobante.Impto_liq_rni, Comprobante.Imp_total, Comprobante.Cae, Comprobante.Motivo,
-						Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError, Comprobante.Cuit_emisor);
-				}
+                
 			}
 			catch (Exception ex)
 			{
 				Cedeira.Ex.ExceptionManager.Publish(ex);
 			}
 		}
-		public static List<FeaEntidades.Comprobante> Lista(Sesion Sesion)
+
+        public List<FeaEntidades.ComprobanteV1_IVA> RG2485V1TipoIva()
+        {
+            List<FeaEntidades.ComprobanteV1_IVA> lista = new List<FeaEntidades.ComprobanteV1_IVA>();
+            FEArn.ar.gov.afip.wsfev1.IvaTipo[] ivaTipo;
+            FEArn.ar.gov.afip.wsfev1.IvaTipoResponse objTipoIvaResponse = new FEArn.ar.gov.afip.wsfev1.IvaTipoResponse();
+            objTipoIvaResponse = objWSFEV1.FEParamGetTiposIva(ticket.ObjAutorizacionfev1);
+            ivaTipo = objTipoIvaResponse.ResultGet;
+            if (ivaTipo.Length != 0)
+            {
+                for(int i = 0; i<ivaTipo.Length; i++)
+                {
+                    FeaEntidades.ComprobanteV1_IVA iva = new FeaEntidades.ComprobanteV1_IVA();
+                    CopiarRG2485V1TipoIva(ivaTipo[i], iva);
+                    lista.Add(iva);
+                }
+            }
+            return lista;
+        }
+
+        private void CopiarRG2485V1TipoIva(FEArn.ar.gov.afip.wsfev1.IvaTipo desde, FeaEntidades.TipoIVA hasta)
+        {
+            hasta.Id = desde.Id;
+            hasta.Baseimp = desde.Desc;
+            hasta.FchDesde = desde.FchDesde;
+            hasta.FchHasta = desde.FchHasta;
+        }
+
+        public List<FeaEntidades.ComprobanteV1_Tributos> RG2485V1Tributos()
+        {
+            List<FeaEntidades.TipoTributos> lista = new List<FeaEntidades.TipoTributos>();
+            FEArn.ar.gov.afip.wsfev1.TributoTipo[] tributos;
+            FEArn.ar.gov.afip.wsfev1.FETributoResponse objFETributoResponse = new FEArn.ar.gov.afip.wsfev1.FETributoResponse();
+            objFETributoResponse = objWSFEV1.FEParamGetTiposTributos(ticket.ObjAutorizacionfev1);
+            tributos = objFETributoResponse.ResultGet;
+            if (tributos.Length != 0)
+            {
+                for (int i = 0; i < tributos.Length; i++)
+                {
+                    FeaEntidades.TipoTributos tributo = new FeaEntidades.TipoTributos();
+                    CopiarRG2485V1Tributos(tributos[i], tributo);
+                    lista.Add(tributo);
+                }
+            }
+            return lista;
+        }
+
+        private void CopiarRG2485V1Tributos(FEArn.ar.gov.afip.wsfev1.TributoTipo desde, FeaEntidades.TipoTributos hasta)
+        {
+            hasta.Id = desde.Id;
+            hasta.Baseimp = desde.Desc;
+            hasta.FchDesde = desde.FchDesde;
+            hasta.FchHasta = desde.FchHasta;
+        }
+        
+        public void EnviarV1(FeaEntidades.ComprobanteV1 Comprobante, int CantidadComprobantes)
+        {
+            try
+            {
+                /*Limpio resultados del comprobante anterior*/
+                Comprobante.Resultado = string.Empty;
+                Comprobante.Motivo = string.Empty;
+                Comprobante.MensajeError = string.Empty;
+                Comprobante.Cae = string.Empty;
+
+                FEArn.ar.gov.afip.wsfev1.FECAERequest objFERequest = new FEArn.ar.gov.afip.wsfev1.FECAERequest();
+
+                //FEArn.ar.gov.afip.wsw.FECabeceraRequest objFECabeceraRequest = new FEArn.ar.gov.afip.wsw.FECabeceraRequest();
+                //objFECabeceraRequest.cantidadreg = cantidadComprobantesXLote;
+
+                ///* Obtengo última transacción y sumo 1 */
+                //FEArn.ar.gov.afip.wsw.FEUltNroResponse objFEUltNroResponse = new FEArn.ar.gov.afip.wsw.FEUltNroResponse();
+                //objFEUltNroResponse = objWS.FEUltNroRequest(ticket.ObjAutorizacion);
+
+                //Comprobante.IdTransaccion = objFEUltNroResponse.nro.value + 1;
+                //objFECabeceraRequest.id = Comprobante.IdTransaccion;
+                //objFECabeceraRequest.presta_serv = Convert.ToInt32(Comprobante.Presta_serv);
+                //objFERequest.Fecr = objFECabeceraRequest;
+
+                //FEArn.ar.gov.afip.wsw.FEDetalleRequest[] arrayFEDetalleRequest = new FEArn.ar.gov.afip.wsw.FEDetalleRequest[CantidadComprobantes];
+                //FEArn.ar.gov.afip.wsw.FEDetalleRequest objFEDetalleRequest = new FEArn.ar.gov.afip.wsw.FEDetalleRequest();
+
+                ///* Obtengo último comprobante*/
+                //FEArn.ar.gov.afip.wsw.FERecuperaLastCMPResponse objFERecuperaLastCMPResponse = new FEArn.ar.gov.afip.wsw.FERecuperaLastCMPResponse();
+                //FEArn.ar.gov.afip.wsw.FELastCMPtype tipoComprobante = new FEArn.ar.gov.afip.wsw.FELastCMPtype();
+                //tipoComprobante.PtoVta = Comprobante.PuntoVenta;
+                //tipoComprobante.TipoCbte = Comprobante.Codigo;
+                //objFERecuperaLastCMPResponse = objWS.FERecuperaLastCMPRequest(ticket.ObjAutorizacion, tipoComprobante);
+                //Comprobante.IdComprobante = objFERecuperaLastCMPResponse.cbte_nro;
+
+                //objFEDetalleRequest.fecha_cbte = Comprobante.Fecha_cbte.ToString("yyyyMMdd");
+                //objFEDetalleRequest.fecha_serv_desde = Comprobante.Fecha_serv_desde.ToString("yyyyMMdd");
+                //objFEDetalleRequest.fecha_serv_hasta = Comprobante.Fecha_serv_hasta.ToString("yyyyMMdd");
+                //objFEDetalleRequest.fecha_venc_pago = Comprobante.Fecha_venc_pago.ToString("yyyyMMdd");
+                //objFEDetalleRequest.imp_neto = Comprobante.Imp_neto;
+                //objFEDetalleRequest.imp_op_ex = Comprobante.Imp_op_ex;
+                //objFEDetalleRequest.imp_tot_conc = Comprobante.Imp_tot_conc;
+                //objFEDetalleRequest.imp_total = Comprobante.Imp_total;
+                //objFEDetalleRequest.impto_liq = Comprobante.Impto_liq;
+                //objFEDetalleRequest.impto_liq_rni = Comprobante.Impto_liq_rni;
+                //objFEDetalleRequest.nro_doc = Comprobante.Nro_doc;
+                //objFEDetalleRequest.punto_vta = Comprobante.PuntoVenta;
+                //objFEDetalleRequest.tipo_cbte = Comprobante.Codigo;
+                //objFEDetalleRequest.tipo_doc = Comprobante.TipoDoc;
+
+                //arrayFEDetalleRequest[0] = objFEDetalleRequest;
+                //for (int c = 0; c < CantidadComprobantes; c++)
+                //{
+                //    Comprobante.IdComprobante = Comprobante.IdComprobante + 1;
+                //    objFEDetalleRequest.cbt_desde = Comprobante.IdComprobante;
+                //    objFEDetalleRequest.cbt_hasta = Comprobante.IdComprobante;
+                //    arrayFEDetalleRequest[c] = objFEDetalleRequest;
+                //}
+                //objFERequest.Fedr = arrayFEDetalleRequest;
+
+                //objFEResponse = objWS.FEAutRequest(ticket.ObjAutorizacion, objFERequest);
+
+                //if (objFEResponse.FedResp != null)
+                //{
+                //    for (int i = 0; i < objFEResponse.FedResp.Length; i++)
+                //    {
+                //        Comprobante.Motivo = objFEResponse.FedResp[i].motivo;
+                //        Comprobante.Resultado = objFEResponse.FedResp[i].resultado;
+                //        Comprobante.Cae = objFEResponse.FedResp[i].cae;
+                //        InsertarComprobanteV1(Comprobante);
+                //    }
+                //}
+                //else
+                //{
+                //    Comprobante.MensajeError = objFEResponse.RError.percode + "-" + objFEResponse.RError.perrmsg;
+                //    Comprobante.IdComprobante = 0;
+                //    Comprobante.IdTransaccion = 0;
+                //    InsertarComprobanteV1(Comprobante);
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                Cedeira.Ex.ExceptionManager.Publish(ex);
+            }
+        }
+
+
+
+        private void InsertarComprobante(FeaEntidades.Comprobante Comprobante)
+        {
+            FEAdb.dbComprobante db = new FEAdb.dbComprobante(sesion);
+            try
+            {
+                System.Threading.Thread.Sleep(1000);
+                db.Comprobante_ins(DateTime.Now, Comprobante.IdTransaccion, Comprobante.IdComprobante, Comprobante.PuntoVenta,
+                    Comprobante.Codigo, Comprobante.DescrCodigo, Comprobante.Nro_doc, Comprobante.TipoDoc,
+                    Comprobante.DescrTipoDoc, Comprobante.Fecha_cbte, Comprobante.Fecha_serv_desde, Comprobante.Fecha_serv_hasta,
+                    Comprobante.Fecha_venc_pago, Comprobante.Imp_neto, Comprobante.Imp_op_ex, Comprobante.Imp_tot_conc,
+                    Comprobante.Impto_liq, Comprobante.Impto_liq_rni, Comprobante.Imp_total, Comprobante.Cae, Comprobante.Motivo,
+                    Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError, Comprobante.Cuit_emisor);
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                System.Threading.Thread.Sleep(1000);
+                db.Comprobante_ins(DateTime.Now, Comprobante.IdTransaccion, Comprobante.IdComprobante, Comprobante.PuntoVenta,
+                    Comprobante.Codigo, Comprobante.DescrCodigo, Comprobante.Nro_doc, Comprobante.TipoDoc,
+                    Comprobante.DescrTipoDoc, Comprobante.Fecha_cbte, Comprobante.Fecha_serv_desde, Comprobante.Fecha_serv_hasta,
+                    Comprobante.Fecha_venc_pago, Comprobante.Imp_neto, Comprobante.Imp_op_ex, Comprobante.Imp_tot_conc,
+                    Comprobante.Impto_liq, Comprobante.Impto_liq_rni, Comprobante.Imp_total, Comprobante.Cae, Comprobante.Motivo,
+                    Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError, Comprobante.Cuit_emisor);
+            }
+        }
+
+        private void InsertarComprobanteV1(FeaEntidades.ComprobanteV1 Comprobante)
+        {
+            FEAdb.dbComprobante db = new FEAdb.dbComprobante(sesion);
+            try
+            {
+                System.Threading.Thread.Sleep(1000);
+                db.Comprobante_ins(DateTime.Now, Comprobante.IdTransaccion, Comprobante.IdComprobante, Comprobante.PuntoVenta,
+                    Comprobante.Codigo, Comprobante.DescrCodigo, Comprobante.Nro_doc, Comprobante.TipoDoc,
+                    Comprobante.DescrTipoDoc, Comprobante.Fecha_cbte, Comprobante.Fecha_serv_desde, Comprobante.Fecha_serv_hasta,
+                    Comprobante.Fecha_venc_pago, Comprobante.Imp_neto, Comprobante.Imp_op_ex, Comprobante.Imp_tot_conc,
+                    Comprobante.Impto_liq, 0, Comprobante.Imp_total, Comprobante.Cae, Comprobante.Motivo,
+                    Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError, Comprobante.Cuit_emisor);
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                System.Threading.Thread.Sleep(1000);
+                db.Comprobante_ins(DateTime.Now, Comprobante.IdTransaccion, Comprobante.IdComprobante, Comprobante.PuntoVenta,
+                    Comprobante.Codigo, Comprobante.DescrCodigo, Comprobante.Nro_doc, Comprobante.TipoDoc,
+                    Comprobante.DescrTipoDoc, Comprobante.Fecha_cbte, Comprobante.Fecha_serv_desde, Comprobante.Fecha_serv_hasta,
+                    Comprobante.Fecha_venc_pago, Comprobante.Imp_neto, Comprobante.Imp_op_ex, Comprobante.Imp_tot_conc,
+                    Comprobante.Impto_liq, 0, Comprobante.Imp_total, Comprobante.Cae, Comprobante.Motivo,
+                    Comprobante.Resultado, Comprobante.Presta_serv, Comprobante.MensajeError, Comprobante.Cuit_emisor);
+            }
+        }
+
+        public int CantidadComprobantesXLote
+        {
+            get { return cantidadComprobantesXLote; }
+            set { cantidadComprobantesXLote = value; }
+        }
+
+        public static List<FeaEntidades.Comprobante> Lista(Sesion Sesion)
 		{
 			List<FeaEntidades.Comprobante> comprobantesLista = new List<FeaEntidades.Comprobante>();
 			FEAdb.dbComprobante db = new FEAdb.dbComprobante(Sesion);
